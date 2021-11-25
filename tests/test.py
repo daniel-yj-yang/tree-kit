@@ -5,4 +5,5 @@
 # License: MIT
 
 from treekit import binarytree
-bt = binarytree()
+bt = binarytree([15, 7, 23, 3, 11, 19, 27, 1, 5, 9, 13, 17, 21, 25, 29, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30])
+bt.show()

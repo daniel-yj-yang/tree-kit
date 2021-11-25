@@ -17,3 +17,33 @@
 .. |License| image:: https://img.shields.io/pypi/l/treekit
 .. _License: https://pypi.python.org/pypi/treekit
 
+
+========================================
+Library for Studying Tree Data Structure
+========================================
+
+Installation
+------------
+
+.. code-block::
+
+   pip install treekit
+
+
+Sample Usage
+------------
+
+>>> from treekit import binarytree
+>>> bt = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14])
+>>> bt.show()
+
+
+Sample Screenshot
+-----------------
+Binary Search Tree height = 2
+|image1|
+
+
+.. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/bst_h=2.png
+
+
