@@ -5,8 +5,8 @@
 .. |BuildTest| image:: https://travis-ci.com/daniel-yj-yang/treekit.svg?branch=main
 .. _BuildTest: https://app.travis-ci.com/github/daniel-yj-yang/treekit
 
-.. |PythonVersion| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue
-.. _PythonVersion: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue
+.. |PythonVersion| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9-blue
+.. _PythonVersion: https://img.shields.io/badge/python-3.8%20%7C%203.9-blue
 
 .. |PyPi| image:: https://img.shields.io/pypi/v/treekit
 .. _PyPi: https://pypi.python.org/pypi/treekit
