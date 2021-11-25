@@ -40,10 +40,11 @@ Sample Usage
 
 Sample Screenshot
 -----------------
-Binary Search Tree, height = 2
+Binary Search Tree, height = 4
+
 |image1|
 
 
-.. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/bst_h=2.png
+.. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 
 

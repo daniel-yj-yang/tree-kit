@@ -74,6 +74,11 @@ var options = {
     }
   },
   "edges": {
+    "arrows": {
+      "to": {
+        "enabled": true
+      }
+    },
     "color": {
       "inherit": true
     },
