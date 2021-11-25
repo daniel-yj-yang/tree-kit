@@ -1,3 +1,7 @@
+2021-11-25
+----------
+ver 0.0.3: some optimization
+
 2021-11-24
 ----------
 ver 0.0.2: initial version

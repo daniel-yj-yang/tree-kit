@@ -38,32 +38,41 @@ class binarytree(object):
                     parent.right = curr
         self.root = nodes[0] if nodes else None
     
+    def __repr__(self) -> str:
+        if self.root:
+            return f"Node({self.root.val})"
+
     def show(self, filename: str = 'output.html'):
         if self.root is None:
             return
-        def dfs(node, level=1):
-            if node:
-                g.add_node(node.val, level=level)
-                if node.left:
-                    g.add_node(node.left.val, level=level+1)
-                    g.add_edge(node.val, node.left.val)
-                    dfs(node.left, level=level+1)
-                else:
-                    hidden_left_n_id = f"{node.val}'s left child = None"
-                    g.add_node(hidden_left_n_id, level=level+1, hidden = True) # label = ' ', color = 'white')
-                    g.add_edge(node.val, hidden_left_n_id, hidden = True) # color = 'white')
-                if node.right:
-                    g.add_node(node.right.val, level=level+1)
-                    g.add_edge(node.val, node.right.val)
-                    dfs(node.right, level=level+1)
-                else:
-                    hidden_right_n_id = f"{node.val}'s right child = None"
-                    g.add_node(hidden_right_n_id, level=level+1, hidden = True) # label = ' ', color = 'white')
-                    g.add_edge(node.val, hidden_right_n_id, hidden = True) # color = 'white')                    
-        g = Network(directed=True, width='100%', height='100%')
+        def dfs(node, level=0):
+            level += 1
+            if node.left:
+                g.add_node(node.left.val, shape="circle", level=level, title=f"left child node of Node({node.val}), level={level}")
+                g.add_edge(node.val, node.left.val)
+                dfs(node.left, level=level)
+            else:
+                hidden_left_n_id = f"{node.val}'s left child = None"
+                g.add_node(hidden_left_n_id, level=level, hidden = True) # label = ' ', color = 'white')
+                g.add_edge(node.val, hidden_left_n_id, hidden = True) # color = 'white')
+            if node.right:
+                g.add_node(node.right.val, shape="circle", level=level, title=f"right child node of Node({node.val}), level={level}")
+                g.add_edge(node.val, node.right.val)
+                dfs(node.right, level=level)
+            else:
+                hidden_right_n_id = f"{node.val}'s right child = None"
+                g.add_node(hidden_right_n_id, level=level, hidden = True) # label = ' ', color = 'white')
+                g.add_edge(node.val, hidden_right_n_id, hidden = True) # color = 'white')                    
+        g = Network(width='100%', height='60%')
+        g.add_node(self.root.val, shape="circle", level=0, title=f"root node of the tree, level=0")
         dfs(self.root)
         g.set_options("""
 var options = {
+  "nodes": {
+    "font": {
+      "size": 40
+    }
+  },
   "edges": {
     "color": {
       "inherit": true
@@ -78,13 +87,18 @@ var options = {
   },
   "physics": {
     "hierarchicalRepulsion": {
-      "centralGravity": 0
+      "centralGravity": 0,
+      "springConstant": 0.2,
+      "nodeDistance": 80
     },
     "minVelocity": 0.75,
     "solver": "hierarchicalRepulsion"
+  },
+  "configure": {
+      "enabled": true,
+      "filter": "physics" 
   }
-}
-""")
+}""")
         full_filename = pathlib.Path.cwd() / filename
         g.show(full_filename.as_posix())
         webbrowser.open(full_filename.as_uri(), new = 2)
