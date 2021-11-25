@@ -40,7 +40,7 @@ Sample Usage
 
 Sample Screenshot
 -----------------
-Binary Search Tree height = 2
+Binary Search Tree, height = 2
 |image1|
 
 
