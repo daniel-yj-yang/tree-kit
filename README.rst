@@ -34,8 +34,8 @@ Sample Usage
 ------------
 
 >>> from treekit import binarytree
->>> bt = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14])
->>> bt.show()
+>>> bt = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # level order
+>>> bt.show() # this will create an output.html and open a tab in web browser to view it
 
 
 Sample Screenshot
