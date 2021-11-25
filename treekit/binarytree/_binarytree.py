@@ -25,7 +25,7 @@ class Node:
 class binarytree(object):
     def __init__(self, data: List[Union[float, int, str]] = [1,2,3,None,5]):
         """
-        data must be in levelorder
+        data must be in level order
         """
         nodes = [None if d is None else Node(d) for d in data] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
         for i in range(1, len(nodes)):
@@ -43,7 +43,7 @@ class binarytree(object):
             return f"Node({self.root.val})"
 
     def show(self, filename: str = 'output.html'):
-        if self.root is None:
+        if not self.root:
             return
         def dfs(node, level=0):
             level += 1
