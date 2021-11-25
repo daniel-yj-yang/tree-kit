@@ -4,6 +4,6 @@
 #
 # License: MIT
 
-class binarytree()
+class binarytree(object):
     def __init__(self):
         pass
