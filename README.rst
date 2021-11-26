@@ -36,6 +36,10 @@ Sample Usage
 >>> from treekit import binarytree
 >>> bt = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # level order
 >>> bt.show() # this will create an output.html and open a tab in web browser to view it
+>>> bt.height
+3
+>>> bt.inorder
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 
 Sample Screenshot

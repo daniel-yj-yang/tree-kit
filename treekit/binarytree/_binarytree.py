@@ -5,12 +5,10 @@
 # License: MIT
 
 from typing import List, Union
-
-from pyvis.network import Network
-
+from pyvis.network import Network # see also https://visjs.org/
+from pathlib import Path
 import webbrowser
 
-import pathlib
 
 class Node:
     def __init__(self, val: Union[float, int, str] = None, left = None, right = None):
@@ -31,6 +29,10 @@ class binarytree(object):
         for i in range(1, len(nodes)):
             curr = nodes[i]
             if curr:
+                # for a geometric sequence, a = 1, r = 2, a_n = a*r**(n-1) => a_1=a, a_2=ar, a_3=ar^2, ...
+                # Sn = a*(1-r^n)/(1-r) = (2^n - 1) => let's say parent index: Sn-1, child index: Sn
+                # then it follows: (Sn - 1)/2 = 2^n - 2 = 2*(2^n-1 - 1) = Sn-1
+                # Thus, the indices for parent and child nodes follow this pattern:
                 parent = nodes[(i - 1) // 2]
                 if i % 2:
                     parent.left = curr
@@ -41,6 +43,39 @@ class binarytree(object):
     def __repr__(self) -> str:
         if self.root:
             return f"Node({self.root.val})"
+
+    @property
+    def height(self): # iteration-based binary tree path
+      if not self.root:
+        return
+      max_height = -1
+      stack = [(self.root, 0)]
+      while stack:
+          node, height = stack.pop()
+          if node.right:
+              stack.append((node.right, height+1))
+          if node.left:
+              stack.append((node.left, height+1))
+          if not node.left and not node.right:
+              max_height = max(height, max_height)
+      return max_height
+
+    @property
+    def inorder(self): # Don't use Morris Traversal as it will modify the original tree
+        curr = self.root
+        stack = []
+        res = []
+        while True:
+            if curr:  # traverse to the leftmost
+                stack.append(curr)
+                curr = curr.left
+            elif stack:  # backtrack from the None left node and visit the node at the top of the stack; when the stack is empty, all has been traversed
+                curr = stack.pop()
+                res.append(curr.val)
+                curr = curr.right  # now, move right 1 step, to attempt to traverse to the deepest left next
+            else:
+                break
+        return res
 
     def show(self, filename: str = 'output.html'):
         if not self.root:
@@ -66,6 +101,7 @@ class binarytree(object):
         g = Network(width='100%', height='60%')
         g.add_node(self.root.val, shape="circle", level=0, title=f"root node of the tree, level=0")
         dfs(self.root)
+        g.heading = f"Binary Tree, height = {self.height}"
         g.set_options("""
 var options = {
   "nodes": {
@@ -101,12 +137,13 @@ var options = {
   },
   "configure": {
       "enabled": true,
-      "filter": "physics" 
+      "filter": "layout,physics" 
   }
 }""")
-        full_filename = pathlib.Path.cwd() / filename
+        full_filename = Path.cwd() / filename
         g.show(full_filename.as_posix())
         webbrowser.open(full_filename.as_uri(), new = 2)
+        return g
 
 
 
