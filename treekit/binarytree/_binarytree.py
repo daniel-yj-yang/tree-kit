@@ -8,7 +8,6 @@ from typing import List, Union
 from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
 import webbrowser
-import random
 
 
 class Node:
