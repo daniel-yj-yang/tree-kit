@@ -40,6 +40,7 @@ class binarytree(object):
                 else:
                     parent.right = curr
         self.root = nodes[0] if nodes else None
+        self.treetype = 'Binary Tree'
     
     def __repr__(self) -> str:
         if self.root:
@@ -119,7 +120,7 @@ class binarytree(object):
         g = Network(width='100%', height='60%')
         g.add_node(self.root.val, shape="circle", level=0, title=f"root node of the tree, level=0")
         dfs(self.root)
-        g.heading = f"Binary Tree, height = {self.height}"
+        g.heading = f"{self.treetype}, height = {self.height}"
         g.set_options("""
 var options = {
   "nodes": {
@@ -166,10 +167,18 @@ var options = {
 
 class bst(binarytree):
 
-  def __init__(self, h=2): # not completed
-    preorder = range(2**(h+1) - 1) # not completed
-    #preorder = random.sample(preorder, len(preorder))
-    self.root = self.from_preorder(preorder) # not completed
+  def __init__(self, h=2):
+    self.root = self.from_sortedarray(range(2**(h+1) - 1))
+    self.treetype = 'Binary Search Tree'
+
+  def from_sortedarray(self, array: List[Union[float, int, str]]) -> Node:
+    if not array:
+      return None
+    mid = len(array) // 2
+    root = Node(array[mid])
+    root.left = self.from_sortedarray(array[:mid])
+    root.right = self.from_sortedarray(array[mid+1:])
+    return root
 
   def from_preorder(self, preorder: List[Union[float, int, str]]) -> Node:
         n = len(preorder)

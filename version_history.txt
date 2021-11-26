@@ -1,6 +1,10 @@
+2021-11-26
+----------
+ver 0.0.5: add class bst
+
 2021-11-25
 ----------
-ver 0.0.3 - 0.0.4: some optimization for show(), and add height and inorder 
+ver 0.0.3 - 0.0.4: some optimization for show(), and add height and inorder/preorder/postorder
 
 2021-11-24
 ----------

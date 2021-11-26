@@ -33,13 +33,15 @@ Installation
 Sample Usage
 ------------
 
->>> from treekit import binarytree
->>> bt = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # level order
->>> bt.show() # this will create an output.html and open a tab in web browser to view it
->>> bt.height
+>>> from treekit import binarytree, bst
+>>> bt1 = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # level order
+>>> bt1.show() # this will create an output.html and open a tab in web browser to view it
+>>> bt1.height
 3
->>> bt.inorder
+>>> bt1.inorder # bt.preorder # bt.postorder
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+>>> bst1 = bst(h=4)
+>>> bst1.show()
 
 
 Sample Screenshot
