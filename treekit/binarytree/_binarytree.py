@@ -8,6 +8,7 @@ from typing import List, Union
 from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
 import webbrowser
+import random
 
 
 class Node:
@@ -21,7 +22,7 @@ class Node:
 
 
 class binarytree(object):
-    def __init__(self, data: List[Union[float, int, str]] = [1,2,3,None,5]):
+    def __init__(self, data: List[Union[float, int, str]]):
         """
         data must be in level order
         """
@@ -44,6 +45,7 @@ class binarytree(object):
         if self.root:
             return f"Node({self.root.val})"
 
+    # height — The number of edges on the longest path between a node and a descendant leaf.
     @property
     def height(self): # iteration-based binary tree path
       if not self.root:
@@ -62,19 +64,35 @@ class binarytree(object):
 
     @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree
-        curr = self.root
-        stack = []
+        def dfs(curr):
+            if curr:
+              dfs(curr.left)
+              res.append(curr.val)
+              dfs(curr.right)
         res = []
-        while True:
-            if curr:  # traverse to the leftmost
-                stack.append(curr)
-                curr = curr.left
-            elif stack:  # backtrack from the None left node and visit the node at the top of the stack; when the stack is empty, all has been traversed
-                curr = stack.pop()
-                res.append(curr.val)
-                curr = curr.right  # now, move right 1 step, to attempt to traverse to the deepest left next
-            else:
-                break
+        dfs(self.root)
+        return res
+
+    @property
+    def preorder(self):
+        def dfs(curr):
+            if curr:
+              res.append(curr.val)
+              dfs(curr.left)
+              dfs(curr.right)
+        res = []
+        dfs(self.root)
+        return res
+
+    @property
+    def postorder(self):
+        def dfs(curr):
+            if curr:
+              dfs(curr.left)
+              dfs(curr.right)
+              res.append(curr.val)
+        res = []
+        dfs(self.root)
         return res
 
     def show(self, filename: str = 'output.html'):
@@ -141,12 +159,33 @@ var options = {
   }
 }""")
         full_filename = Path.cwd() / filename
-        g.show(full_filename.as_posix())
+        g.write_html(full_filename.as_posix())
         webbrowser.open(full_filename.as_uri(), new = 2)
         return g
 
 
+class bst(binarytree):
 
+  def __init__(self, h=2): # not completed
+    preorder = range(2**(h+1) - 1) # not completed
+    #preorder = random.sample(preorder, len(preorder))
+    self.root = self.from_preorder(preorder) # not completed
 
+  def from_preorder(self, preorder: List[Union[float, int, str]]) -> Node:
+        n = len(preorder)
+        if not n:
+            return None
+        root = Node(preorder[0])         
+        stack = [root, ]
+        for i in range(1, n):
+            node, child = stack[-1], Node(preorder[i])
+            while stack and stack[-1].val < child.val: 
+                node = stack.pop()
+            if node.val < child.val:
+                node.right = child 
+            else:
+                node.left = child 
+            stack.append(child)
+        return root
 
         
