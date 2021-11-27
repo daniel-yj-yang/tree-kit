@@ -1,6 +1,6 @@
 2021-11-27
 ----------
-ver 0.0.6: added levelorder, rewire_as_linked_list(), data, and updated some description
+ver 0.0.6 ~ 0.0.7: added levelorder, rewire_as_linked_list(), data, and updated some description
 
 2021-11-26
 ----------
