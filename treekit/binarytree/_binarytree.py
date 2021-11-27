@@ -21,12 +21,13 @@ class Node:
 
 
 class binarytree(object):
-    def __init__(self, array: List[Union[float, int, str]]):
+    def __init__(self, data: List[Union[float, int, str]]):
         """
         https://en.wikipedia.org/wiki/Binary_tree#Arrays
         "Binary trees can also be stored in breadth-first order as an implicit data structure in arrays"
         """
-        nodes = [None if a is None else Node(a) for a in array] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
+        self.data_array = data.copy()
+        nodes = [None if d is None else Node(d) for d in data] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
         for i in range(1, len(nodes)):
             curr = nodes[i]
             if curr:
@@ -126,6 +127,10 @@ class binarytree(object):
             next_level_array.append(node.right)
         this_level_array = next_level_array
       return res
+
+    @property
+    def data(self):
+      return self.data_array
 
     def show(self, filename: str = 'output.html'):
         if not self.root:
