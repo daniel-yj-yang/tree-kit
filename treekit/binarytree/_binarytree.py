@@ -22,11 +22,12 @@ class Node:
 
 
 class binarytree(object):
-    def __init__(self, data: List[Union[float, int, str]] = []):
+    def __init__(self, data: List[Union[float, int, str]] = [], *args, **kwargs):
         """
         https://en.wikipedia.org/wiki/Binary_tree#Arrays
         "Binary trees can also be stored in breadth-first order as an implicit data structure in arrays"
         """
+        super().__init__(*args, **kwargs)
         self.treetype = 'Binary Tree'
         self.data_array = data.copy()
         self._construct_from_data_array()
@@ -231,8 +232,8 @@ var options = {
 
 class bst(binarytree):
 
-  def __init__(self, h=2):
-    super().__init__(data=[])
+  def __init__(self, h=2, *args, **kwargs):
+    super().__init__(*args, **kwargs)
     self.root = self.from_sortedarray(array = range(2**(h+1) - 1))
     self.data_array = self.levelorder # this needs improvement to include None in child node, i.e., it cannot use levelorder, but it needs to use 'values'
     self.treetype = 'Binary Search Tree'
