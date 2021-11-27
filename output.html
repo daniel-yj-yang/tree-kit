@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Binary Tree, height = 4</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 60%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": 15, "label": 15, "level": 0, "shape": "circle", "title": "root node of the tree, level=0"}, {"id": 7, "label": 7, "level": 1, "shape": "circle", "title": "left child node of Node(15), level=1"}, {"id": 3, "label": 3, "level": 2, "shape": "circle", "title": "left child node of Node(7), level=2"}, {"id": 1, "label": 1, "level": 3, "shape": "circle", "title": "left child node of Node(3), level=3"}, {"id": 0, "label": 0, "level": 4, "shape": "circle", "title": "left child node of Node(1), level=4"}, {"hidden": true, "id": "0\u0027s left child = None", "label": "0\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "0\u0027s right child = None", "label": "0\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 2, "label": 2, "level": 4, "shape": "circle", "title": "right child node of Node(1), level=4"}, {"hidden": true, "id": "2\u0027s left child = None", "label": "2\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "2\u0027s right child = None", "label": "2\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 5, "label": 5, "level": 3, "shape": "circle", "title": "right child node of Node(3), level=3"}, {"id": 4, "label": 4, "level": 4, "shape": "circle", "title": "left child node of Node(5), level=4"}, {"hidden": true, "id": "4\u0027s left child = None", "label": "4\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "4\u0027s right child = None", "label": "4\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 6, "label": 6, "level": 4, "shape": "circle", "title": "right child node of Node(5), level=4"}, {"hidden": true, "id": "6\u0027s left child = None", "label": "6\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "6\u0027s right child = None", "label": "6\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 11, "label": 11, "level": 2, "shape": "circle", "title": "right child node of Node(7), level=2"}, {"id": 9, "label": 9, "level": 3, "shape": "circle", "title": "left child node of Node(11), level=3"}, {"id": 8, "label": 8, "level": 4, "shape": "circle", "title": "left child node of Node(9), level=4"}, {"hidden": true, "id": "8\u0027s left child = None", "label": "8\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "8\u0027s right child = None", "label": "8\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 10, "label": 10, "level": 4, "shape": "circle", "title": "right child node of Node(9), level=4"}, {"hidden": true, "id": "10\u0027s left child = None", "label": "10\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "10\u0027s right child = None", "label": "10\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 13, "label": 13, "level": 3, "shape": "circle", "title": "right child node of Node(11), level=3"}, {"id": 12, "label": 12, "level": 4, "shape": "circle", "title": "left child node of Node(13), level=4"}, {"hidden": true, "id": "12\u0027s left child = None", "label": "12\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "12\u0027s right child = None", "label": "12\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 14, "label": 14, "level": 4, "shape": "circle", "title": "right child node of Node(13), level=4"}, {"hidden": true, "id": "14\u0027s left child = None", "label": "14\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "14\u0027s right child = None", "label": "14\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 23, "label": 23, "level": 1, "shape": "circle", "title": "right child node of Node(15), level=1"}, {"id": 19, "label": 19, "level": 2, "shape": "circle", "title": "left child node of Node(23), level=2"}, {"id": 17, "label": 17, "level": 3, "shape": "circle", "title": "left child node of Node(19), level=3"}, {"id": 16, "label": 16, "level": 4, "shape": "circle", "title": "left child node of Node(17), level=4"}, {"hidden": true, "id": "16\u0027s left child = None", "label": "16\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "16\u0027s right child = None", "label": "16\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 18, "label": 18, "level": 4, "shape": "circle", "title": "right child node of Node(17), level=4"}, {"hidden": true, "id": "18\u0027s left child = None", "label": "18\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "18\u0027s right child = None", "label": "18\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 21, "label": 21, "level": 3, "shape": "circle", "title": "right child node of Node(19), level=3"}, {"id": 20, "label": 20, "level": 4, "shape": "circle", "title": "left child node of Node(21), level=4"}, {"hidden": true, "id": "20\u0027s left child = None", "label": "20\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "20\u0027s right child = None", "label": "20\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 22, "label": 22, "level": 4, "shape": "circle", "title": "right child node of Node(21), level=4"}, {"hidden": true, "id": "22\u0027s left child = None", "label": "22\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "22\u0027s right child = None", "label": "22\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 27, "label": 27, "level": 2, "shape": "circle", "title": "right child node of Node(23), level=2"}, {"id": 25, "label": 25, "level": 3, "shape": "circle", "title": "left child node of Node(27), level=3"}, {"id": 24, "label": 24, "level": 4, "shape": "circle", "title": "left child node of Node(25), level=4"}, {"hidden": true, "id": "24\u0027s left child = None", "label": "24\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "24\u0027s right child = None", "label": "24\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 26, "label": 26, "level": 4, "shape": "circle", "title": "right child node of Node(25), level=4"}, {"hidden": true, "id": "26\u0027s left child = None", "label": "26\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "26\u0027s right child = None", "label": "26\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 29, "label": 29, "level": 3, "shape": "circle", "title": "right child node of Node(27), level=3"}, {"id": 28, "label": 28, "level": 4, "shape": "circle", "title": "left child node of Node(29), level=4"}, {"hidden": true, "id": "28\u0027s left child = None", "label": "28\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "28\u0027s right child = None", "label": "28\u0027s right child = None", "level": 5, "shape": "dot"}, {"id": 30, "label": 30, "level": 4, "shape": "circle", "title": "right child node of Node(29), level=4"}, {"hidden": true, "id": "30\u0027s left child = None", "label": "30\u0027s left child = None", "level": 5, "shape": "dot"}, {"hidden": true, "id": "30\u0027s right child = None", "label": "30\u0027s right child = None", "level": 5, "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": 15, "to": 7}, {"from": 7, "to": 3}, {"from": 3, "to": 1}, {"from": 1, "to": 0}, {"from": 0, "hidden": true, "to": "0\u0027s left child = None"}, {"from": 0, "hidden": true, "to": "0\u0027s right child = None"}, {"from": 1, "to": 2}, {"from": 2, "hidden": true, "to": "2\u0027s left child = None"}, {"from": 2, "hidden": true, "to": "2\u0027s right child = None"}, {"from": 3, "to": 5}, {"from": 5, "to": 4}, {"from": 4, "hidden": true, "to": "4\u0027s left child = None"}, {"from": 4, "hidden": true, "to": "4\u0027s right child = None"}, {"from": 5, "to": 6}, {"from": 6, "hidden": true, "to": "6\u0027s left child = None"}, {"from": 6, "hidden": true, "to": "6\u0027s right child = None"}, {"from": 7, "to": 11}, {"from": 11, "to": 9}, {"from": 9, "to": 8}, {"from": 8, "hidden": true, "to": "8\u0027s left child = None"}, {"from": 8, "hidden": true, "to": "8\u0027s right child = None"}, {"from": 9, "to": 10}, {"from": 10, "hidden": true, "to": "10\u0027s left child = None"}, {"from": 10, "hidden": true, "to": "10\u0027s right child = None"}, {"from": 11, "to": 13}, {"from": 13, "to": 12}, {"from": 12, "hidden": true, "to": "12\u0027s left child = None"}, {"from": 12, "hidden": true, "to": "12\u0027s right child = None"}, {"from": 13, "to": 14}, {"from": 14, "hidden": true, "to": "14\u0027s left child = None"}, {"from": 14, "hidden": true, "to": "14\u0027s right child = None"}, {"from": 15, "to": 23}, {"from": 23, "to": 19}, {"from": 19, "to": 17}, {"from": 17, "to": 16}, {"from": 16, "hidden": true, "to": "16\u0027s left child = None"}, {"from": 16, "hidden": true, "to": "16\u0027s right child = None"}, {"from": 17, "to": 18}, {"from": 18, "hidden": true, "to": "18\u0027s left child = None"}, {"from": 18, "hidden": true, "to": "18\u0027s right child = None"}, {"from": 19, "to": 21}, {"from": 21, "to": 20}, {"from": 20, "hidden": true, "to": "20\u0027s left child = None"}, {"from": 20, "hidden": true, "to": "20\u0027s right child = None"}, {"from": 21, "to": 22}, {"from": 22, "hidden": true, "to": "22\u0027s left child = None"}, {"from": 22, "hidden": true, "to": "22\u0027s right child = None"}, {"from": 23, "to": 27}, {"from": 27, "to": 25}, {"from": 25, "to": 24}, {"from": 24, "hidden": true, "to": "24\u0027s left child = None"}, {"from": 24, "hidden": true, "to": "24\u0027s right child = None"}, {"from": 25, "to": 26}, {"from": 26, "hidden": true, "to": "26\u0027s left child = None"}, {"from": 26, "hidden": true, "to": "26\u0027s right child = None"}, {"from": 27, "to": 29}, {"from": 29, "to": 28}, {"from": 28, "hidden": true, "to": "28\u0027s left child = None"}, {"from": 28, "hidden": true, "to": "28\u0027s right child = None"}, {"from": 29, "to": 30}, {"from": 30, "hidden": true, "to": "30\u0027s left child = None"}, {"from": 30, "hidden": true, "to": "30\u0027s right child = None"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"nodes": {"font": {"size": 40}}, "edges": {"arrows": {"to": {"enabled": true}}, "color": {"inherit": true}, "smooth": false}, "layout": {"hierarchical": {"enabled": true, "sortMethod": "directed"}}, "physics": {"hierarchicalRepulsion": {"centralGravity": 0, "springConstant": 0.2, "nodeDistance": 80}, "minVelocity": 0.75, "solver": "hierarchicalRepulsion"}, "configure": {"enabled": true, "filter": "layout,physics"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
