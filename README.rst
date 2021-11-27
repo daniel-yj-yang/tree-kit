@@ -34,7 +34,7 @@ Sample Usage
 ------------
 
 >>> from treekit import binarytree, bst
->>> bt1 = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # level order
+>>> bt1 = binarytree([7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]) # data array in breadth-first order
 >>> bt1.show() # this will create an output.html and open a tab in web browser to view it
 >>> bt1.height
 3

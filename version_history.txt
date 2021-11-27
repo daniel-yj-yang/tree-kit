@@ -1,10 +1,14 @@
+2021-11-27
+----------
+ver 0.0.6: added levelorder, rewire_as_linked_list, and updated some description
+
 2021-11-26
 ----------
-ver 0.0.5: add class bst
+ver 0.0.5: added class bst
 
 2021-11-25
 ----------
-ver 0.0.3 - 0.0.4: some optimization for show(), and add height and inorder/preorder/postorder
+ver 0.0.3 - 0.0.4: some optimization for show(), and added height and inorder/preorder/postorder
 
 2021-11-24
 ----------

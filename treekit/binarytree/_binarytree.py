@@ -21,18 +21,20 @@ class Node:
 
 
 class binarytree(object):
-    def __init__(self, data: List[Union[float, int, str]]):
+    def __init__(self, array: List[Union[float, int, str]]):
         """
-        data must be in level order
+        https://en.wikipedia.org/wiki/Binary_tree#Arrays
+        "Binary trees can also be stored in breadth-first order as an implicit data structure in arrays"
         """
-        nodes = [None if d is None else Node(d) for d in data] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
+        nodes = [None if a is None else Node(a) for a in array] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
         for i in range(1, len(nodes)):
             curr = nodes[i]
             if curr:
                 # for a geometric sequence, a = 1, r = 2, a_n = a*r**(n-1) => a_1=a, a_2=ar, a_3=ar^2, ...
                 # Sn = a*(1-r^n)/(1-r) = (2^n - 1) => let's say parent index: Sn-1, child index: Sn
                 # then it follows: (Sn - 1)/2 = 2^n - 2 = 2*(2^n-1 - 1) = Sn-1
-                # Thus, the indices for parent and child nodes follow this pattern:
+                # See also: https://en.wikipedia.org/wiki/Binary_tree#Arrays
+                # Thus, the indices for parent and child nodes follow this pattern
                 parent = nodes[(i - 1) // 2]
                 if i % 2:
                     parent.left = curr
@@ -49,7 +51,7 @@ class binarytree(object):
     @property
     def height(self): # iteration-based binary tree path
       if not self.root:
-        return
+        return 0
       max_height = -1
       stack = [(self.root, 0)]
       while stack:
@@ -61,6 +63,20 @@ class binarytree(object):
           if not node.left and not node.right:
               max_height = max(height, max_height)
       return max_height
+
+    def rewire_as_linked_list(self):
+        if not self.root:
+            return None
+        node = self.root
+        while node:
+          if node.left:
+            rightmost = node.left
+            while rightmost.right:
+              rightmost = rightmost.right
+            rightmost.right = node.right
+            node.right = node.left
+            node.left = None
+          node = node.right
 
     @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree
@@ -94,6 +110,22 @@ class binarytree(object):
         res = []
         dfs(self.root)
         return res
+
+    @property
+    def levelorder(self):
+      if not self.root:
+        return
+      this_level_array = [self.root]
+      res = []
+      while this_level_array:
+        next_level_array = []
+        for node in this_level_array:
+          if node:
+            res.append(node.val)
+            next_level_array.append(node.left)
+            next_level_array.append(node.right)
+        this_level_array = next_level_array
+      return res
 
     def show(self, filename: str = 'output.html'):
         if not self.root:
