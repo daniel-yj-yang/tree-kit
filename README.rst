@@ -33,7 +33,7 @@ Installation
 Sample Usage
 ------------
 
->>> from treekit import binarytree, bst
+>>> from treekit import binarytree
 >>> bt1 = binarytree([13, 3, 14, 0, 4, None, None, None, 2, None, 7]) # data array in breadth-first order, see: https://en.wikipedia.org/wiki/Binary_tree#Arrays
 >>> bt1.show() # this will create an output.html and open a tab in web browser to view it
 >>> bt1.height
@@ -42,11 +42,13 @@ Sample Usage
 [0, 2, 3, 4, 7, 13, 14]
 >>> bt1.preorder
 [13, 3, 0, 2, 4, 7, 14]
->>> bt1.rewire_as_linked_list()
+>>> bt1.flatten()
 >>> bt1.inorder
 [13, 3, 0, 2, 4, 7, 14]
 >>> bt1.preorder
 [13, 3, 0, 2, 4, 7, 14]
+
+>>> from treekit import bst
 >>> bst1 = bst(h=4)
 >>> bst1.show()
 

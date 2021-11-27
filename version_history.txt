@@ -1,15 +1,25 @@
 2021-11-27
 ----------
-ver 0.0.6 ~ 0.0.7: added levelorder, rewire_as_linked_list(), data, and updated some description
+ver 0.0.6 ~ 0.0.7: added the following, while updating some description about input data being an array (as opposed to level order)
+
+binarytree.levelorder
+binarytree.flatten()
+binarytree.data
+binarytree.as_linked_list
 
 2021-11-26
 ----------
-ver 0.0.5: added class bst
+ver 0.0.5: added the class bst for binary search tree
 
 2021-11-25
 ----------
-ver 0.0.3 - 0.0.4: some optimization for show(), and added height and inorder/preorder/postorder
+ver 0.0.3 - 0.0.4: some optimization for binarytree.show(), and added the following functions
+
+binarytree.height
+binarytree.inorder
+binarytree.preorder
+binarytree.postorder
 
 2021-11-24
 ----------
-ver 0.0.2: initial version
+ver 0.0.2: initial version. added the class binarytree

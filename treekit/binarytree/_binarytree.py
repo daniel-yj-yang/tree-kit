@@ -22,7 +22,7 @@ class Node:
 
 
 class binarytree(object):
-    def __init__(self, data: List[Union[float, int, str]]):
+    def __init__(self, data: List[Union[float, int, str]] = []):
         """
         https://en.wikipedia.org/wiki/Binary_tree#Arrays
         "Binary trees can also be stored in breadth-first order as an implicit data structure in arrays"
@@ -69,9 +69,10 @@ class binarytree(object):
               max_height = max(height, max_height)
       return max_height
 
-    def rewire_as_linked_list(self):
+    def flatten(self):
       """
-      this will modify the links between nodes
+      Flatten the BT to linked list
+      this will modify the links between existing nodes
       """
       if not self.root:
           return None
@@ -87,12 +88,32 @@ class binarytree(object):
         node = node.right
 
     @property
+    def as_linked_list(self):
+      """
+      this will _NOT_ modify the links between nodes.
+      this is basically preorder traversal
+      """
+      if not self.root:
+          return None
+      def dfs(curr):
+        nonlocal head
+        if curr:
+          head.right = Node(curr.val)
+          head = head.right
+          dfs(curr.left)
+          dfs(curr.right)
+      new_root = Node()
+      head = new_root
+      dfs(self.root)
+      return new_root.right
+
+    @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree
         def dfs(curr):
-            if curr:
-              dfs(curr.left)
-              res.append(curr.val)
-              dfs(curr.right)
+          if curr:
+            dfs(curr.left)
+            res.append(curr.val)
+            dfs(curr.right)
         res = []
         dfs(self.root)
         return res
@@ -100,10 +121,10 @@ class binarytree(object):
     @property
     def preorder(self):
         def dfs(curr):
-            if curr:
-              res.append(curr.val)
-              dfs(curr.left)
-              dfs(curr.right)
+          if curr:
+            res.append(curr.val)
+            dfs(curr.left)
+            dfs(curr.right)
         res = []
         dfs(self.root)
         return res
@@ -111,10 +132,10 @@ class binarytree(object):
     @property
     def postorder(self):
         def dfs(curr):
-            if curr:
-              dfs(curr.left)
-              dfs(curr.right)
-              res.append(curr.val)
+          if curr:
+            dfs(curr.left)
+            dfs(curr.right)
+            res.append(curr.val)
         res = []
         dfs(self.root)
         return res
