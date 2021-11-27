@@ -40,6 +40,13 @@ Sample Usage
 3
 >>> bt1.inorder # bt.preorder # bt.postorder # bt.levelorder
 [0, 2, 3, 4, 7, 13, 14]
+>>> bt1.preorder
+[13, 3, 0, 2, 4, 7, 14]
+>>> bt1.rewire_as_linked_list()
+>>> bt1.inorder
+[13, 3, 0, 2, 4, 7, 14]
+>>> bt1.preorder
+[13, 3, 0, 2, 4, 7, 14]
 >>> bst1 = bst(h=4)
 >>> bst1.show()
 
