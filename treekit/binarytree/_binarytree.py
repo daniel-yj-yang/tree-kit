@@ -204,9 +204,9 @@ var options = {
 class bst(binarytree):
 
   def __init__(self, h=2):
-    super().__init__()
-    self.root = self.from_sortedarray(range(2**(h+1) - 1))
-    self.data_array = self.levelorder
+    super().__init__(data=[])
+    self.root = self.from_sortedarray(array = range(2**(h+1) - 1))
+    self.data_array = self.levelorder # this needs improvement to include None in child node, i.e., it cannot use levelorder, but it needs to use 'values'
     self.treetype = 'Binary Search Tree'
 
   def from_sortedarray(self, array: List[Union[float, int, str]]) -> Node:
