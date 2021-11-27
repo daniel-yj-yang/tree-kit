@@ -7,9 +7,14 @@ binarytree.flatten()
 binarytree.data
 binarytree.as_linked_list
 
+
 2021-11-26
 ----------
-ver 0.0.5: added the class bst for binary search tree
+ver 0.0.5: added the class bst for binary search tree, and its functions:
+
+bst.from_sortedarray()
+bst.from_preorder()
+
 
 2021-11-25
 ----------
@@ -19,6 +24,7 @@ binarytree.height
 binarytree.inorder
 binarytree.preorder
 binarytree.postorder
+
 
 2021-11-24
 ----------
