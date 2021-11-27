@@ -4,6 +4,7 @@
 #
 # License: MIT
 
+
 from typing import List, Union
 from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
@@ -26,24 +27,27 @@ class binarytree(object):
         https://en.wikipedia.org/wiki/Binary_tree#Arrays
         "Binary trees can also be stored in breadth-first order as an implicit data structure in arrays"
         """
-        self.data_array = data.copy()
-        nodes = [None if d is None else Node(d) for d in data] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
-        for i in range(1, len(nodes)):
-            curr = nodes[i]
-            if curr:
-                # for a geometric sequence, a = 1, r = 2, a_n = a*r**(n-1) => a_1=a, a_2=ar, a_3=ar^2, ...
-                # Sn = a*(1-r^n)/(1-r) = (2^n - 1) => let's say parent index: Sn-1, child index: Sn
-                # then it follows: (Sn - 1)/2 = 2^n - 2 = 2*(2^n-1 - 1) = Sn-1
-                # See also: https://en.wikipedia.org/wiki/Binary_tree#Arrays
-                # Thus, the indices for parent and child nodes follow this pattern
-                parent = nodes[(i - 1) // 2]
-                if i % 2:
-                    parent.left = curr
-                else:
-                    parent.right = curr
-        self.root = nodes[0] if nodes else None
         self.treetype = 'Binary Tree'
-    
+        self.data_array = data.copy()
+        self._construct_from_data_array()
+
+    def _construct_from_data_array(self):
+      nodes = [None if d is None else Node(d) for d in self.data_array] # 'if d is None' is important because sometimes d = 0 but we still want Node(0)
+      for i in range(1, len(nodes)):
+          curr = nodes[i]
+          if curr:
+              # for a geometric sequence, a = 1, r = 2, a_n = a*r**(n-1) => a_1=a, a_2=ar, a_3=ar^2, ...
+              # Sn = a*(1-r^n)/(1-r) = (2^n - 1) => let's say parent index: Sn-1, child index: Sn
+              # then it follows: (Sn - 1)/2 = 2^n - 2 = 2*(2^n-1 - 1) = Sn-1
+              # See also: https://en.wikipedia.org/wiki/Binary_tree#Arrays
+              # Thus, the indices for parent and child nodes follow this pattern
+              parent = nodes[(i - 1) // 2]
+              if i % 2:
+                  parent.left = curr
+              else:
+                  parent.right = curr
+      self.root = nodes[0] if nodes else None
+        
     def __repr__(self) -> str:
         if self.root:
             return f"Node({self.root.val})"
@@ -66,18 +70,21 @@ class binarytree(object):
       return max_height
 
     def rewire_as_linked_list(self):
-        if not self.root:
-            return None
-        node = self.root
-        while node:
-          if node.left:
-            rightmost = node.left
-            while rightmost.right:
-              rightmost = rightmost.right
-            rightmost.right = node.right
-            node.right = node.left
-            node.left = None
-          node = node.right
+      """
+      this will modify the links between nodes
+      """
+      if not self.root:
+          return None
+      node = self.root
+      while node:
+        if node.left:
+          rightmost = node.left
+          while rightmost.right:
+            rightmost = rightmost.right
+          rightmost.right = node.right
+          node.right = node.left
+          node.left = None
+        node = node.right
 
     @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree
