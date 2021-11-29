@@ -1,9 +1,9 @@
 2021-11-27 ~ 2021-11-28
 -----------------------
-ver 0.0.6 ~ 0.0.8: added the following, while updating some description about input data being an array (as opposed to level order)
+ver 0.0.6 ~ 0.0.9: added the following, while updating some description about input data being an array (as opposed to level order)
 
 binarytree.levelorder
-binarytree.flatten() # target: 'preorder' or 'inorder', inplace: True/False
+binarytree.flatten() # two arguments: (1) target: 'preorder' or 'inorder', (2) inplace: True/False
 binarytree.data
 
 

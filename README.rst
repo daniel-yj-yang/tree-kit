@@ -42,7 +42,7 @@ Sample Usage
 [0, 2, 3, 4, 7, 13, 14]
 >>> bt1.preorder
 [13, 3, 0, 2, 4, 7, 14]
->>> bt1.flatten()
+>>> bt1.flatten(target="preorder", inplace=True)
 >>> bt1.inorder
 [13, 3, 0, 2, 4, 7, 14]
 >>> bt1.preorder
