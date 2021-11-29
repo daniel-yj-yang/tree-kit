@@ -4,7 +4,7 @@
 #
 # License: MIT
 
-from ._binarytree import binarytree, bst
+from ._binarytree import Node, binarytree, bst
 
 # this is for "from <package_name>.game import *"
-__all__ = ["binarytree","bst"]
+__all__ = ["Node","binarytree","bst"]

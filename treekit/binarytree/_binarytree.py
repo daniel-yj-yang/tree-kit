@@ -9,13 +9,15 @@ from typing import List, Union
 from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
 import webbrowser
+import sys
 
 
 class Node:
-    def __init__(self, val: Union[float, int, str] = None, left = None, right = None):
+    def __init__(self, val: Union[float, int, str] = None, left = None, right = None, parent = None):
         self.val = val
-        self.left = left    # left child node
-        self.right = right  # right child node
+        self.left = left    # left child pointer
+        self.right = right  # right child pointer
+        self.parent = parent # parent pointer
 
     def __repr__(self) -> str:
         return f"Node({self.val})"
@@ -43,6 +45,7 @@ class binarytree(object):
               # See also: https://en.wikipedia.org/wiki/Binary_tree#Arrays
               # Thus, the indices for parent and child nodes follow this pattern
               parent = nodes[(i - 1) // 2]
+              curr.parent = parent # only 1 parent
               if i % 2:
                   parent.left = curr
               else:
@@ -70,43 +73,62 @@ class binarytree(object):
               max_height = max(height, max_height)
       return max_height
 
-    def flatten(self):
+    def flatten(self, target: str = "preorder", inplace: bool = True):
       """
       Flatten the BT to linked list
       this will modify the links between existing nodes
+      also known as Morris's traversal, or threaded binary tree
       """
       if not self.root:
           return None
-      node = self.root
-      while node:
-        if node.left:
-          rightmost = node.left
-          while rightmost.right:
-            rightmost = rightmost.right
-          rightmost.right = node.right
-          node.right = node.left
-          node.left = None
-        node = node.right
-
-    @property
-    def as_linked_list(self):
-      """
-      this will _NOT_ modify the links between nodes.
-      this is basically preorder traversal
-      """
-      if not self.root:
-          return None
-      def dfs(curr):
-        nonlocal head
-        if curr:
-          head.right = Node(curr.val)
-          head = head.right
-          dfs(curr.left)
-          dfs(curr.right)
-      new_root = Node()
-      head = new_root
-      dfs(self.root)
-      return new_root.right
+      if inplace:
+        node = self.root # to begin with. 'node' points to the same node instance that 'self.root' is pointed to, but it will point to other node instance later
+        if target == "preorder":
+          while node:
+            if node.left:
+              rightmost = node.left
+              while rightmost.right:
+                rightmost = rightmost.right
+              rightmost.right = node.right
+              node.right = node.left
+              node.left = None
+            node = node.right
+        elif target == "inorder":
+          while node:
+            if node.left:
+              rightmost = node.left
+              while rightmost.right:
+                rightmost = rightmost.right
+              rightmost.right, original_left, original_parent = node, node.left, node.parent
+              node.parent = rightmost
+              node.left = None
+              node = original_left
+              node.parent = original_parent
+              if original_parent:
+                original_parent.right = node
+            else:
+              node = node.right
+          while self.root.parent:
+            self.root = self.root.parent
+        else:
+          print(f'Error: the target [{target}] has not been implemented')
+          sys.exit(1)
+      else:
+        if target == "preorder":
+          def dfs(curr):
+            nonlocal head
+            if curr:
+              head.right = Node(curr.val)
+              head = head.right
+              dfs(curr.left)
+              dfs(curr.right)
+          new_root = Node()
+          head = new_root
+          dfs(self.root)
+          return new_root.right
+        else:
+          print(f'Error: the target [{target}] has not been implemented')
+          sys.exit(1)
 
     @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree

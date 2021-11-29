@@ -10,8 +10,8 @@ from .__about__ import (
     __license__,
 )
 
-from .binarytree import binarytree, bst
+from .binarytree import Node, binarytree, bst
 
 
 # this is for "from <package_name> import *"
-__all__ = ["binarytree", "bst"]
+__all__ = ["Node", "binarytree", "bst"]

@@ -1,11 +1,10 @@
-2021-11-27
-----------
-ver 0.0.6 ~ 0.0.7: added the following, while updating some description about input data being an array (as opposed to level order)
+2021-11-27 ~ 2021-11-28
+-----------------------
+ver 0.0.6 ~ 0.0.8: added the following, while updating some description about input data being an array (as opposed to level order)
 
 binarytree.levelorder
-binarytree.flatten()
+binarytree.flatten() # target: 'preorder' or 'inorder', inplace: True/False
 binarytree.data
-binarytree.as_linked_list
 
 
 2021-11-26
@@ -28,4 +27,4 @@ binarytree.postorder
 
 2021-11-24
 ----------
-ver 0.0.2: initial version. added the class binarytree
+ver 0.0.2: initial version. added classes binarytree and Node
