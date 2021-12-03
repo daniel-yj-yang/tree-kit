@@ -130,6 +130,26 @@ class binarytree(object):
           print(f'Error: the target [{target}] has not been implemented')
           sys.exit(1)
 
+    def find_maximum_path_sum(self):
+      """
+      returns the global maxium path sum and the node that has it
+      """
+      def max_NNG(node): # return the maximum non-negative gain from a given node
+        nonlocal global_max, critical_node
+        if not node:
+          return 0
+        left_maxNNG = max_NNG(node.left)
+        right_maxNNG = max_NNG(node.right)
+        local_max = node.val + left_maxNNG + right_maxNNG
+        if local_max > global_max:
+          global_max = local_max
+          critical_node = node
+        return max(0, node.val + max(left_maxNNG, right_maxNNG))
+      global_max = float('-inf')
+      critical_node = None
+      max_NNG(self.root)
+      return global_max, critical_node
+
     @property
     def inorder(self): # Don't use Morris Traversal as it will modify the original tree
         def dfs(curr):
