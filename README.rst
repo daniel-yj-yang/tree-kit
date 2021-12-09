@@ -60,12 +60,12 @@ Sample Usage
 >>> bst1.show()
 
 
-Sample Screenshot
------------------
-Binary Search Tree, height = 4
+Screenshot 1: Binary Search Tree, height = 4
+--------------------------------------------
 |image1|
 
-Remove Invalid Parentheses
+Screenshot 2: Remove Invalid Parentheses
+----------------------------------------
 |image2|
 
 
