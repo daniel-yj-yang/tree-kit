@@ -53,13 +53,15 @@ class tree(object):
             # phase 2: scanning for removal
             for index_j in range(removal_scan_left_range, index_i+1):
                 if s[index_j] == pair[1]:
-                    if index_j == 0 or s[index_j-1] != pair[1]:
+                    if index_j == removal_scan_left_range or s[index_j-1] != pair[1]:
                         new_s = s[:index_j] + s[(index_j+1):len(s)]
+                        # add the node - start
                         if pair[0] == '(':
                           curr_node = TreeNode(val=new_s)
                         else:
                           curr_node = TreeNode(val=new_s[::-1])
                         parent.children.append(curr_node)
+                        # add the node - end
                         DFS(s=new_s, pair=pair, anomaly_scan_left_range=index_i, removal_scan_left_range=index_j, depth=depth+1, parent=curr_node)
         elif stack_size > 0:
             # phase 3: reverse scanning
