@@ -59,6 +59,7 @@ Sample Usage
 >>> bst1 = bst(h=4)
 >>> bst1.show()
 
+------------
 
 Screenshot 1: Binary Search Tree, height = 4
 --------------------------------------------
