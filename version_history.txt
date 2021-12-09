@@ -1,9 +1,9 @@
 2021-12-08
 ----------
-ver 0.0.11: created two classes, and added a function under the class tree
+ver 0.0.12: created two classes, and added a function under the class tree
 
-class tree - for general tree structure, not just binarytree
 class TreeNode - to work with the tree class
+class tree - for general tree structure, not just binarytree
 tree.remove_invalid_parentheses()
 
 
