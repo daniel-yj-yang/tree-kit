@@ -64,6 +64,8 @@ Screenshot 1: Binary Search Tree, height = 4
 --------------------------------------------
 |image1|
 
+------------
+
 Screenshot 2: DFS Search Space for Removing Invalid Parentheses
 ---------------------------------------------------------------
 |image2|
