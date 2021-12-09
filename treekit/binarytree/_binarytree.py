@@ -12,6 +12,7 @@ import webbrowser
 import sys
 
 
+
 class Node:
     def __init__(self, val: Union[float, int, str] = None, left = None, right = None, parent = None):
         self.val = val

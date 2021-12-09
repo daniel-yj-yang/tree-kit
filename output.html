@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1> DFS Search Space for Valid Parentheses</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 60%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "()())a)b()))", "label": "()())a)b()))", "level": 0, "shape": "ellipse", "title": "root node of the tree, level=0"}, {"id": "(())a)b()))", "label": "(())a)b()))", "level": 1, "shape": "ellipse", "title": "child node of Node(()())a)b()))), level=1"}, {"id": "(()a)b()))", "label": "(()a)b()))", "level": 2, "shape": "ellipse", "title": "child node of Node((())a)b()))), level=2"}, {"id": "((a)b()))", "label": "((a)b()))", "level": 3, "shape": "ellipse", "title": "child node of Node((()a)b()))), level=3"}, {"id": "((ab()))", "label": "((ab()))", "level": 4, "shape": "ellipse", "title": "child node of Node(((a)b()))), level=4"}, {"id": "((a)b())", "label": "((a)b())", "level": 4, "shape": "ellipse", "title": "child node of Node(((a)b()))), level=4"}, {"id": "(()ab()))", "label": "(()ab()))", "level": 3, "shape": "ellipse", "title": "child node of Node((()a)b()))), level=3"}, {"id": "(()ab())", "label": "(()ab())", "level": 4, "shape": "ellipse", "title": "child node of Node((()ab()))), level=4"}, {"id": "(()a)b())", "label": "(()a)b())", "level": 3, "shape": "ellipse", "title": "child node of Node((()a)b()))), level=3"}, {"id": "(()a)b()", "label": "(()a)b()", "level": 4, "shape": "ellipse", "title": "child node of Node((()a)b())), level=4"}, {"id": "(())ab()))", "label": "(())ab()))", "level": 2, "shape": "ellipse", "title": "child node of Node((())a)b()))), level=2"}, {"id": "(())ab())", "label": "(())ab())", "level": 3, "shape": "ellipse", "title": "child node of Node((())ab()))), level=3"}, {"id": "(())ab()", "label": "(())ab()", "level": 4, "shape": "ellipse", "title": "child node of Node((())ab())), level=4"}, {"id": "()()a)b()))", "label": "()()a)b()))", "level": 1, "shape": "ellipse", "title": "child node of Node(()())a)b()))), level=1"}, {"id": "()(a)b()))", "label": "()(a)b()))", "level": 2, "shape": "ellipse", "title": "child node of Node(()()a)b()))), level=2"}, {"id": "()(ab()))", "label": "()(ab()))", "level": 3, "shape": "ellipse", "title": "child node of Node(()(a)b()))), level=3"}, {"id": "()(ab())", "label": "()(ab())", "level": 4, "shape": "ellipse", "title": "child node of Node(()(ab()))), level=4"}, {"id": "()(a)b())", "label": "()(a)b())", "level": 3, "shape": "ellipse", "title": "child node of Node(()(a)b()))), level=3"}, {"id": "()(a)b()", "label": "()(a)b()", "level": 4, "shape": "ellipse", "title": "child node of Node(()(a)b())), level=4"}, {"id": "()()ab()))", "label": "()()ab()))", "level": 2, "shape": "ellipse", "title": "child node of Node(()()a)b()))), level=2"}, {"id": "()()ab())", "label": "()()ab())", "level": 3, "shape": "ellipse", "title": "child node of Node(()()ab()))), level=3"}, {"id": "()()ab()", "label": "()()ab()", "level": 4, "shape": "ellipse", "title": "child node of Node(()()ab())), level=4"}]);
+        edges = new vis.DataSet([{"from": "()())a)b()))", "to": "(())a)b()))"}, {"from": "(())a)b()))", "to": "(()a)b()))"}, {"from": "(()a)b()))", "to": "((a)b()))"}, {"from": "((a)b()))", "to": "((ab()))"}, {"from": "((a)b()))", "to": "((a)b())"}, {"from": "(()a)b()))", "to": "(()ab()))"}, {"from": "(()ab()))", "to": "(()ab())"}, {"from": "(()a)b()))", "to": "(()a)b())"}, {"from": "(()a)b())", "to": "(()a)b()"}, {"from": "(())a)b()))", "to": "(())ab()))"}, {"from": "(())ab()))", "to": "(())ab())"}, {"from": "(())ab())", "to": "(())ab()"}, {"from": "()())a)b()))", "to": "()()a)b()))"}, {"from": "()()a)b()))", "to": "()(a)b()))"}, {"from": "()(a)b()))", "to": "()(ab()))"}, {"from": "()(ab()))", "to": "()(ab())"}, {"from": "()(a)b()))", "to": "()(a)b())"}, {"from": "()(a)b())", "to": "()(a)b()"}, {"from": "()()a)b()))", "to": "()()ab()))"}, {"from": "()()ab()))", "to": "()()ab())"}, {"from": "()()ab())", "to": "()()ab()"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"nodes": {"font": {"size": 20}}, "edges": {"arrows": {"to": {"enabled": true}}, "color": {"inherit": true}, "smooth": false}, "layout": {"hierarchical": {"enabled": true, "sortMethod": "directed"}}, "physics": {"hierarchicalRepulsion": {"centralGravity": 0, "springConstant": 0.2, "nodeDistance": 150}, "minVelocity": 0.75, "solver": "hierarchicalRepulsion"}, "configure": {"enabled": true, "filter": "layout,physics"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

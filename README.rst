@@ -18,9 +18,9 @@
 .. _License: https://pypi.python.org/pypi/treekit
 
 
-========================================
-Library for Studying Tree Data Structure
-========================================
+=====================================================
+Library for Studying and Applying Tree Data Structure
+=====================================================
 
 Installation
 ------------
@@ -50,6 +50,11 @@ Sample Usage
 >>> bt1.find_maximum_path_sum()
 (43, Node(13)
 
+>>> from treekit import tree
+>>> t1 = tree()
+>>> t1.remove_invalid_parenthese('()())a)b()))')
+['((ab()))', '((a)b())', '(()ab())', '(()a)b()', '(())ab()', '()(ab())', '()(a)b()', '()()ab()']
+
 >>> from treekit import bst
 >>> bst1 = bst(h=4)
 >>> bst1.show()
@@ -58,10 +63,12 @@ Sample Usage
 Sample Screenshot
 -----------------
 Binary Search Tree, height = 4
-
 |image1|
+
+Remove Invalid Parentheses
+|image2|
 
 
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
-
+.. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
 

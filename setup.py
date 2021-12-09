@@ -19,7 +19,7 @@ setuptools.setup(
     version=treekit.__version__,
     author="Daniel Yang",
     author_email="daniel.yj.yang@gmail.com",
-    description="Library for Studying Tree Data Structure",
+    description="Library for Studying and Applying Tree Data Structure",
     license=treekit.__license__,
     long_description=long_description,
     long_description_content_type="text/x-rst",
