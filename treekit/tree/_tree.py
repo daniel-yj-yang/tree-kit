@@ -72,7 +72,7 @@ class tree(object):
       res = []
       self.root = TreeNode(val=s)
       DFS(s=s, pair=('(', ')'), depth=0, parent=self.root)
-      self.show(heading=' DFS Search Space for Valid Parentheses')
+      self.show(heading='DFS Search Space for Removing Invalid Parentheses')
       return res
 
     def show(self, filename: str = 'output.html', heading: str = None):
