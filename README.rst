@@ -48,12 +48,16 @@ Sample Usage
 >>> bt1.preorder
 [13, 3, 0, 2, 4, 7, 14]
 >>> bt1.find_maximum_path_sum()
-(43, Node(13)
+(43, Node(13))
 
 >>> from treekit import tree
 >>> t1 = tree()
 >>> t1.remove_invalid_parenthese('()())a)b()))')
 ['((ab()))', '((a)b())', '(()ab())', '(()a)b()', '(())ab()', '()(ab())', '()(a)b()', '()()ab()']
+
+>>> from treekit import tree
+>>> t2 = tree()
+>>> t2.tree_traversals_summary()
 
 >>> from treekit import bst
 >>> bst1 = bst(h=4)

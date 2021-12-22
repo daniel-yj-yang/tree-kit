@@ -35,6 +35,31 @@ class tree(object):
         if self.root:
             return f"TreeNode({self.root.val})"
 
+    def tree_traversals_summary(self):
+      self.root = TreeNode('Tree Traversals')
+      node_DFS = TreeNode('Depth-First Search\n(DFS)')
+      node_BFS = TreeNode('Breadth-First Search\n(BFS)')
+      node_BFS_iteration = TreeNode('BFS\nIteration w/ queue')
+      node_BFS.children.extend([node_BFS_iteration,])
+      node_preorder = TreeNode('Preorder')
+      node_inorder = TreeNode('Inorder')
+      node_postorder = TreeNode('Postorder')
+      node_preorder_iteration = TreeNode('Preorder\nIteration w/ stack')
+      node_preorder_recursion = TreeNode('Preorder\nRecursion')
+      node_preorder_morris = TreeNode('Preorder\nMorris')
+      node_inorder_iteration = TreeNode('Inorder\nIteration w/ stack')
+      node_inorder_recursion = TreeNode('Inorder\nRecursion')
+      node_inorder_morris = TreeNode('Inorder\nMorris')
+      node_postorder_iteration = TreeNode('Postorder\nIteration w/ stack')
+      node_postorder_recursion = TreeNode('Postorder\nRecursion')
+      node_postorder_morris = TreeNode('Postorder\nMorris')
+      node_preorder.children.extend([node_preorder_iteration, node_preorder_recursion, node_preorder_morris])
+      node_inorder.children.extend([node_inorder_iteration, node_inorder_recursion, node_inorder_morris])
+      node_postorder.children.extend([node_postorder_iteration, node_postorder_recursion, node_postorder_morris])
+      node_DFS.children.extend([node_preorder, node_inorder, node_postorder])
+      self.root.children.extend([node_DFS, node_BFS])
+      self.show(heading='Tree Traversals')
+
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
       https://leetcode.com/problems/remove-invalid-parentheses/

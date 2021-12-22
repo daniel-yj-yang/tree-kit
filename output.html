@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Tree Traversals</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 60%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Tree Traversals", "label": "Tree Traversals", "level": 0, "shape": "ellipse", "title": "root node of the tree, level=0"}, {"id": "Depth-First Search\n(DFS)", "label": "Depth-First Search\n(DFS)", "level": 1, "shape": "ellipse", "title": "child node of Node(Tree Traversals), level=1"}, {"id": "Preorder", "label": "Preorder", "level": 2, "shape": "ellipse", "title": "child node of Node(Depth-First Search\n(DFS)), level=2"}, {"id": "Preorder\nIteration w/ stack", "label": "Preorder\nIteration w/ stack", "level": 3, "shape": "ellipse", "title": "child node of Node(Preorder), level=3"}, {"id": "Preorder\nRecursion", "label": "Preorder\nRecursion", "level": 3, "shape": "ellipse", "title": "child node of Node(Preorder), level=3"}, {"id": "Preorder\nMorris", "label": "Preorder\nMorris", "level": 3, "shape": "ellipse", "title": "child node of Node(Preorder), level=3"}, {"id": "Inorder", "label": "Inorder", "level": 2, "shape": "ellipse", "title": "child node of Node(Depth-First Search\n(DFS)), level=2"}, {"id": "Inorder\nIteration w/ stack", "label": "Inorder\nIteration w/ stack", "level": 3, "shape": "ellipse", "title": "child node of Node(Inorder), level=3"}, {"id": "Inorder\nRecursion", "label": "Inorder\nRecursion", "level": 3, "shape": "ellipse", "title": "child node of Node(Inorder), level=3"}, {"id": "Inorder\nMorris", "label": "Inorder\nMorris", "level": 3, "shape": "ellipse", "title": "child node of Node(Inorder), level=3"}, {"id": "Postorder", "label": "Postorder", "level": 2, "shape": "ellipse", "title": "child node of Node(Depth-First Search\n(DFS)), level=2"}, {"id": "Postorder\nIteration w/ stack", "label": "Postorder\nIteration w/ stack", "level": 3, "shape": "ellipse", "title": "child node of Node(Postorder), level=3"}, {"id": "Postorder\nRecursion", "label": "Postorder\nRecursion", "level": 3, "shape": "ellipse", "title": "child node of Node(Postorder), level=3"}, {"id": "Postorder\nMorris", "label": "Postorder\nMorris", "level": 3, "shape": "ellipse", "title": "child node of Node(Postorder), level=3"}, {"id": "Breadth-First Search\n(BFS)", "label": "Breadth-First Search\n(BFS)", "level": 1, "shape": "ellipse", "title": "child node of Node(Tree Traversals), level=1"}, {"id": "BFS\nIteration w/ queue", "label": "BFS\nIteration w/ queue", "level": 2, "shape": "ellipse", "title": "child node of Node(Breadth-First Search\n(BFS)), level=2"}]);
+        edges = new vis.DataSet([{"from": "Tree Traversals", "to": "Depth-First Search\n(DFS)"}, {"from": "Depth-First Search\n(DFS)", "to": "Preorder"}, {"from": "Preorder", "to": "Preorder\nIteration w/ stack"}, {"from": "Preorder", "to": "Preorder\nRecursion"}, {"from": "Preorder", "to": "Preorder\nMorris"}, {"from": "Depth-First Search\n(DFS)", "to": "Inorder"}, {"from": "Inorder", "to": "Inorder\nIteration w/ stack"}, {"from": "Inorder", "to": "Inorder\nRecursion"}, {"from": "Inorder", "to": "Inorder\nMorris"}, {"from": "Depth-First Search\n(DFS)", "to": "Postorder"}, {"from": "Postorder", "to": "Postorder\nIteration w/ stack"}, {"from": "Postorder", "to": "Postorder\nRecursion"}, {"from": "Postorder", "to": "Postorder\nMorris"}, {"from": "Tree Traversals", "to": "Breadth-First Search\n(BFS)"}, {"from": "Breadth-First Search\n(BFS)", "to": "BFS\nIteration w/ queue"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"nodes": {"font": {"size": 20}}, "edges": {"arrows": {"to": {"enabled": true}}, "color": {"inherit": true}, "smooth": false}, "layout": {"hierarchical": {"enabled": true, "sortMethod": "directed"}}, "physics": {"hierarchicalRepulsion": {"centralGravity": 0, "springConstant": 0.2, "nodeDistance": 150}, "minVelocity": 0.75, "solver": "hierarchicalRepulsion"}, "configure": {"enabled": true, "filter": "layout,physics"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
