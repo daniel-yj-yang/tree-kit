@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Binary Tree, height = 7</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 60%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": 140609639318576, "label": 4, "level": 0, "shape": "circle", "title": "root node of the tree, level=0"}, {"id": 140609639881024, "label": "-7", "level": 1, "shape": "circle", "title": "left child node of Node(4), level=1"}, {"hidden": true, "id": "The left child of 140609639881024 = None", "label": "The left child of 140609639881024 = None", "level": 2, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609639881024 = None", "label": "The right child of 140609639881024 = None", "level": 2, "shape": "dot"}, {"id": 140609639881120, "label": "-3", "level": 1, "shape": "circle", "title": "right child node of Node(4), level=1"}, {"id": 140609639881168, "label": "8", "level": 2, "shape": "circle", "title": "left child node of Node(-3), level=2"}, {"id": 140609639881984, "label": "9", "level": 3, "shape": "circle", "title": "left child node of Node(8), level=3"}, {"id": 140609694854976, "label": "6", "level": 4, "shape": "circle", "title": "left child node of Node(9), level=4"}, {"id": 140609694852768, "label": "0", "level": 5, "shape": "circle", "title": "left child node of Node(6), level=5"}, {"hidden": true, "id": "The left child of 140609694852768 = None", "label": "The left child of 140609694852768 = None", "level": 6, "shape": "dot"}, {"id": 140609695127680, "label": "-1", "level": 6, "shape": "circle", "title": "right child node of Node(0), level=6"}, {"id": 140609695127824, "label": "-3", "level": 7, "shape": "circle", "title": "left child node of Node(-1), level=7"}, {"hidden": true, "id": "The left child of 140609695127824 = None", "label": "The left child of 140609695127824 = None", "level": 8, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609695127824 = None", "label": "The right child of 140609695127824 = None", "level": 8, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609695127680 = None", "label": "The right child of 140609695127680 = None", "level": 7, "shape": "dot"}, {"id": 140609694907696, "label": "6", "level": 5, "shape": "circle", "title": "right child node of Node(6), level=5"}, {"id": 140609695127536, "label": "-4", "level": 6, "shape": "circle", "title": "left child node of Node(6), level=6"}, {"hidden": true, "id": "The left child of 140609695127536 = None", "label": "The left child of 140609695127536 = None", "level": 7, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609695127536 = None", "label": "The right child of 140609695127536 = None", "level": 7, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609694907696 = None", "label": "The right child of 140609694907696 = None", "level": 6, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609639881984 = None", "label": "The right child of 140609639881984 = None", "level": 4, "shape": "dot"}, {"id": 140609639933360, "label": "-7", "level": 3, "shape": "circle", "title": "right child node of Node(8), level=3"}, {"id": 140609694853584, "label": "-1", "level": 4, "shape": "circle", "title": "left child node of Node(-7), level=4"}, {"id": 140609694906592, "label": "7", "level": 5, "shape": "circle", "title": "left child node of Node(-1), level=5"}, {"hidden": true, "id": "The left child of 140609694906592 = None", "label": "The left child of 140609694906592 = None", "level": 6, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609694906592 = None", "label": "The right child of 140609694906592 = None", "level": 6, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609694853584 = None", "label": "The right child of 140609694853584 = None", "level": 5, "shape": "dot"}, {"id": 140609694853488, "label": "-6", "level": 4, "shape": "circle", "title": "right child node of Node(-7), level=4"}, {"id": 140609694907360, "label": "11", "level": 5, "shape": "circle", "title": "left child node of Node(-6), level=5"}, {"id": 140609695127584, "label": "-2", "level": 6, "shape": "circle", "title": "left child node of Node(11), level=6"}, {"hidden": true, "id": "The left child of 140609695127584 = None", "label": "The left child of 140609695127584 = None", "level": 7, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609695127584 = None", "label": "The right child of 140609695127584 = None", "level": 7, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609694907360 = None", "label": "The right child of 140609694907360 = None", "level": 6, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609694853488 = None", "label": "The right child of 140609694853488 = None", "level": 5, "shape": "dot"}, {"id": 140609639881648, "label": "-4", "level": 2, "shape": "circle", "title": "right child node of Node(-3), level=2"}, {"id": 140609659207536, "label": "-4", "level": 3, "shape": "circle", "title": "left child node of Node(-4), level=3"}, {"hidden": true, "id": "The left child of 140609659207536 = None", "label": "The left child of 140609659207536 = None", "level": 4, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609659207536 = None", "label": "The right child of 140609659207536 = None", "level": 4, "shape": "dot"}, {"hidden": true, "id": "The right child of 140609639881648 = None", "label": "The right child of 140609639881648 = None", "level": 3, "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": 140609639318576, "to": 140609639881024}, {"from": 140609639881024, "hidden": true, "to": "The left child of 140609639881024 = None"}, {"from": 140609639881024, "hidden": true, "to": "The right child of 140609639881024 = None"}, {"from": 140609639318576, "to": 140609639881120}, {"from": 140609639881120, "to": 140609639881168}, {"from": 140609639881168, "to": 140609639881984}, {"from": 140609639881984, "to": 140609694854976}, {"from": 140609694854976, "to": 140609694852768}, {"from": 140609694852768, "hidden": true, "to": "The left child of 140609694852768 = None"}, {"from": 140609694852768, "to": 140609695127680}, {"from": 140609695127680, "to": 140609695127824}, {"from": 140609695127824, "hidden": true, "to": "The left child of 140609695127824 = None"}, {"from": 140609695127824, "hidden": true, "to": "The right child of 140609695127824 = None"}, {"from": 140609695127680, "hidden": true, "to": "The right child of 140609695127680 = None"}, {"from": 140609694854976, "to": 140609694907696}, {"from": 140609694907696, "to": 140609695127536}, {"from": 140609695127536, "hidden": true, "to": "The left child of 140609695127536 = None"}, {"from": 140609695127536, "hidden": true, "to": "The right child of 140609695127536 = None"}, {"from": 140609694907696, "hidden": true, "to": "The right child of 140609694907696 = None"}, {"from": 140609639881984, "hidden": true, "to": "The right child of 140609639881984 = None"}, {"from": 140609639881168, "to": 140609639933360}, {"from": 140609639933360, "to": 140609694853584}, {"from": 140609694853584, "to": 140609694906592}, {"from": 140609694906592, "hidden": true, "to": "The left child of 140609694906592 = None"}, {"from": 140609694906592, "hidden": true, "to": "The right child of 140609694906592 = None"}, {"from": 140609694853584, "hidden": true, "to": "The right child of 140609694853584 = None"}, {"from": 140609639933360, "to": 140609694853488}, {"from": 140609694853488, "to": 140609694907360}, {"from": 140609694907360, "to": 140609695127584}, {"from": 140609695127584, "hidden": true, "to": "The left child of 140609695127584 = None"}, {"from": 140609695127584, "hidden": true, "to": "The right child of 140609695127584 = None"}, {"from": 140609694907360, "hidden": true, "to": "The right child of 140609694907360 = None"}, {"from": 140609694853488, "hidden": true, "to": "The right child of 140609694853488 = None"}, {"from": 140609639881120, "to": 140609639881648}, {"from": 140609639881648, "to": 140609659207536}, {"from": 140609659207536, "hidden": true, "to": "The left child of 140609659207536 = None"}, {"from": 140609659207536, "hidden": true, "to": "The right child of 140609659207536 = None"}, {"from": 140609639881648, "hidden": true, "to": "The right child of 140609639881648 = None"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"nodes": {"font": {"size": 40}}, "edges": {"arrows": {"to": {"enabled": true}}, "color": {"inherit": true}, "smooth": false}, "layout": {"hierarchical": {"enabled": true, "sortMethod": "directed"}}, "physics": {"hierarchicalRepulsion": {"centralGravity": 0, "springConstant": 0.2, "nodeDistance": 80}, "minVelocity": 0.75, "solver": "hierarchicalRepulsion"}, "configure": {"enabled": true, "filter": "layout,physics"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

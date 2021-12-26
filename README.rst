@@ -50,7 +50,16 @@ Sample Usage
 >>> bt1.find_maximum_path_sum()
 (43, Node(13))
 >>> bt1.diameter()
+The sum of depths from the left and right subtrees of Node(3) is 4
 4
+
+>>> from treekit import binarytree
+>>> bt2 = binarytree()
+>>> bt2.compact_build([4, -7, -3, None, None, 8, -4, 9, -7, -4, None, 6, None, -1, -6, None, None, 0, 6, 7, None, 11, None, None, -1, -4, None, None, None, -2, None, -3])
+>>> bt2.show() # this will create an output.html and open a tab in web browser to view it
+>>> bt2.diameter()
+The sum of depths from the left and right subtrees of Node(8) is 9
+9
 
 >>> from treekit import tree
 >>> t1 = tree()

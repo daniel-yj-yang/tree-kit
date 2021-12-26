@@ -1,6 +1,6 @@
 2021-12-26
 ----------
-ver 0.0.14: add a function to tree and binarytree classes
+ver 0.0.15: add functions to tree and binarytree classes, and enhance binarytree.show() for unique n_id (node id) 
 
 tree.tree_traversals_summary()
 binarytree.diameter()
