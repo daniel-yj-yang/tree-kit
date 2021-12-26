@@ -1,7 +1,9 @@
+2021-12-26
 ----------
-ver 0.0.13: add a function to tree class
+ver 0.0.13: add a function to tree and binarytree classes
 
 tree.tree_traversals_summary()
+binarytree.diameter()
 
 
 2021-12-08

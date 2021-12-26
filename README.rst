@@ -49,6 +49,8 @@ Sample Usage
 [13, 3, 0, 2, 4, 7, 14]
 >>> bt1.find_maximum_path_sum()
 (43, Node(13))
+>>> bt1.diameter()
+4
 
 >>> from treekit import tree
 >>> t1 = tree()

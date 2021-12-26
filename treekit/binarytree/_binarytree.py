@@ -55,8 +55,25 @@ class binarytree(object):
         
     def __repr__(self) -> str:
         if self.root:
-            return f"Node({self.root.val})"
+          return f"Node({self.root.val})"
+        else:
+          return "None"
 
+    def diameter(self):
+      """
+      the longest path between two leaf nodes
+      """
+      def maxDepth(node):
+        nonlocal global_max
+        if not node:
+          return 0
+        left, right = maxDepth(node.left), maxDepth(node.right)
+        global_max = max(global_max, left+right)
+        return max(left, right) + 1
+      global_max = 0
+      maxDepth(self.root)
+      return global_max
+  
     # height — The number of edges on the longest path between a node and a descendant leaf.
     @property
     def height(self): # iteration-based binary tree path
