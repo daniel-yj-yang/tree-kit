@@ -1,9 +1,10 @@
 2021-12-26
 ----------
-ver 0.0.13: add a function to tree and binarytree classes
+ver 0.0.14: add a function to tree and binarytree classes
 
 tree.tree_traversals_summary()
 binarytree.diameter()
+binarytree.compact_build(), e.g., bt1.compact_build([4, -7, -3, None, None, 8, -4, 9, -7, -4, None, 6, None, -1, -6, None, None, 0, 6, 7, None, 11, None, None, -1, -4, None, None, None, -2, None, -3])
 
 
 2021-12-08

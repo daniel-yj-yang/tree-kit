@@ -10,6 +10,7 @@ from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
 import webbrowser
 import sys
+from collections import deque
 
 
 
@@ -52,7 +53,26 @@ class binarytree(object):
               else:
                   parent.right = curr
       self.root = nodes[0] if nodes else None
-        
+
+    def compact_build(self, data: List[Union[float, int, str]] = []):
+      if not data:
+        return
+      queue = deque()
+      self.root = Node(data[0])
+      queue.append(self.root)
+      idx = 1
+      n = len(data)
+      while idx < n:
+        node = queue.popleft()
+        if data[idx] is not None:  # use 'is not None' because some data[idx] = 0
+            node.left = Node(data[idx])
+            queue.append(node.left)
+        idx += 1
+        if idx < n and data[idx] is not None: # use 'is not None' because some data[idx] = 0
+            node.right = Node(data[idx])
+            queue.append(node.right)
+        idx += 1
+
     def __repr__(self) -> str:
         if self.root:
           return f"Node({self.root.val})"
@@ -64,14 +84,17 @@ class binarytree(object):
       the longest path between two leaf nodes
       """
       def depth(node):
-        nonlocal global_max
+        nonlocal global_max, global_max_str
         if not node:
           return 0
         left, right = depth(node.left), depth(node.right)
-        global_max = max(global_max, left+right)
+        if (left+right) > global_max:
+          global_max = (left+right)
+          global_max_str = f"The sum of depths from the left and right subtrees of {node} is {global_max}"
         return max(left, right) + 1
-      global_max = 0
+      global_max, global_max_str = 0, ''
       depth(self.root)
+      print(global_max_str)
       return global_max
   
     # height — The number of edges on the longest path between a node and a descendant leaf.
@@ -226,24 +249,24 @@ class binarytree(object):
             return
         def dfs(node, level=0):
             level += 1
-            if node.left:
-                g.add_node(node.left.val, shape="circle", level=level, title=f"left child node of Node({node.val}), level={level}")
-                g.add_edge(node.val, node.left.val)
+            if node.left is not None:
+                g.add_node(n_id=id(node.left), label=f"{node.left.val}", shape="circle", level=level, title=f"left child node of Node({node.val}), level={level}")
+                g.add_edge(source=id(node), to=id(node.left))
                 dfs(node.left, level=level)
             else:
-                hidden_left_n_id = f"{node.val}'s left child = None"
-                g.add_node(hidden_left_n_id, level=level, hidden = True) # label = ' ', color = 'white')
-                g.add_edge(node.val, hidden_left_n_id, hidden = True) # color = 'white')
-            if node.right:
-                g.add_node(node.right.val, shape="circle", level=level, title=f"right child node of Node({node.val}), level={level}")
-                g.add_edge(node.val, node.right.val)
+                hidden_left_n_id = f"The left child of {id(node)} = None"
+                g.add_node(n_id=hidden_left_n_id, label='', level=level, hidden = True) # label = ' ', color = 'white')
+                g.add_edge(source=id(node), to=hidden_left_n_id, hidden = True) # color = 'white')
+            if node.right is not None:
+                g.add_node(n_id=id(node.right), label=f"{node.right.val}", shape="circle", level=level, title=f"right child node of Node({node.val}), level={level}")
+                g.add_edge(source=id(node), to=id(node.right))
                 dfs(node.right, level=level)
             else:
-                hidden_right_n_id = f"{node.val}'s right child = None"
-                g.add_node(hidden_right_n_id, level=level, hidden = True) # label = ' ', color = 'white')
-                g.add_edge(node.val, hidden_right_n_id, hidden = True) # color = 'white')                    
+                hidden_right_n_id = f"The right child of {id(node)} = None"
+                g.add_node(n_id=hidden_right_n_id, label='', level=level, hidden = True) # label = ' ', color = 'white')
+                g.add_edge(source=id(node), to=hidden_right_n_id, hidden = True) # color = 'white')                    
         g = Network(width='100%', height='60%')
-        g.add_node(self.root.val, shape="circle", level=0, title=f"root node of the tree, level=0")
+        g.add_node(n_id=id(self.root), label=self.root.val, shape="circle", level=0, title=f"root node of the tree, level=0")
         dfs(self.root)
         g.heading = f"{self.treetype}, height = {self.height}"
         g.set_options("""
