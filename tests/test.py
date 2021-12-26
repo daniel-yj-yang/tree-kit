@@ -11,6 +11,7 @@ print(bt1.inorder)
 print(bt1.preorder)
 print(bt1.postorder)
 print(bt1.levelorder)
+print(bt1.diameter)
 
 bt1.flatten(target="preorder", inplace=True)
 print(bt1.inorder)
