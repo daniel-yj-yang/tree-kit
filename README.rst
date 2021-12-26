@@ -42,6 +42,9 @@ Sample Usage
 [0, 2, 3, 4, 7, 13, 14]
 >>> bt1.preorder
 [13, 3, 0, 2, 4, 7, 14]
+>>> bt1.diameter()
+The sum of depths from the left and right subtrees of Node(3) is 4
+4
 >>> bt1.flatten(target="preorder", inplace=True)
 >>> bt1.inorder
 [13, 3, 0, 2, 4, 7, 14]
@@ -49,9 +52,6 @@ Sample Usage
 [13, 3, 0, 2, 4, 7, 14]
 >>> bt1.find_maximum_path_sum()
 (43, Node(13))
->>> bt1.diameter()
-The sum of depths from the left and right subtrees of Node(3) is 4
-4
 
 >>> from treekit import binarytree
 >>> bt2 = binarytree()
