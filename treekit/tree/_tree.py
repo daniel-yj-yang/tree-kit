@@ -65,7 +65,17 @@ class tree(object):
       self.root = TreeNode('IP string', shape = 'text')
       level1_three_dots = TreeNode('Contains 3 dots', shape='text')
       level1_seven_colons = TreeNode('Contains 7 colons', shape='text')
-      level1_neither = TreeNode('Neither', shape='text')
+      level1_neither = TreeNode('Otherwise, return \"Neither\"', shape='text')
+      level2_ip4_validate = TreeNode('Validate each \"IPv4\" chunk', shape='text')
+      level3_ip4_valid = TreeNode('Valid, return \"IPv4\"', shape='text')
+      level3_ip4_invalid = TreeNode('Invalid, return \"Neither\"', shape='text')
+      level2_ip6_validate = TreeNode('Validate each \"IPv6\" chunk', shape='text')
+      level3_ip6_valid = TreeNode('Valid, return \"IPv6\"', shape='text')
+      level3_ip6_invalid = TreeNode('Invalid, return \"Neither\"', shape='text')
+      level2_ip4_validate.children.extend([level3_ip4_valid, level3_ip4_invalid])
+      level2_ip6_validate.children.extend([level3_ip6_valid, level3_ip6_invalid])
+      level1_three_dots.children.extend([level2_ip4_validate])
+      level1_seven_colons.children.extend([level2_ip6_validate])
       self.root.children.extend([level1_three_dots, level1_seven_colons, level1_neither])
       self.show(heading='Validate IP Address')
 
@@ -117,11 +127,11 @@ class tree(object):
         def dfs(parent, level=0):
             if parent.children:
               for child in parent.children:
-                g.add_node(child.val, shape=child.shape, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
-                g.add_edge(parent.val, child.val)
+                g.add_node(n_id=id(child), label=child.val, shape=child.shape, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+                g.add_edge(source=id(parent), to=id(child))
                 dfs(child, level=level+1)               
         g = Network(width='100%', height='60%')
-        g.add_node(self.root.val, shape=self.root.shape, level=0, title=f"root node of the tree, level=0")
+        g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape, level=0, title=f"root node of the tree, level=0")
         dfs(parent=self.root)
         if not heading:
           g.heading = f"{self.treetype}"
