@@ -13,9 +13,10 @@ import webbrowser
 
 
 class TreeNode:
-    def __init__(self, val: Union[float, int, str] = None):
+    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse"):
         self.val = val
         self.children = []
+        self.shape = shape
 
     def __repr__(self) -> str:
         return f"TreeNode({self.val})"
@@ -59,6 +60,14 @@ class tree(object):
       node_DFS.children.extend([node_preorder, node_inorder, node_postorder])
       self.root.children.extend([node_DFS, node_BFS])
       self.show(heading='Tree Traversals')
+
+    def validate_IP_address(self):
+      self.root = TreeNode('IP string', shape = 'text')
+      level1_three_dots = TreeNode('Contains 3 dots', shape='text')
+      level1_seven_colons = TreeNode('Contains 7 colons', shape='text')
+      level1_neither = TreeNode('Neither', shape='text')
+      self.root.children.extend([level1_three_dots, level1_seven_colons, level1_neither])
+      self.show(heading='Validate IP Address')
 
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
@@ -108,11 +117,11 @@ class tree(object):
         def dfs(parent, level=0):
             if parent.children:
               for child in parent.children:
-                g.add_node(child.val, shape="ellipse", level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+                g.add_node(child.val, shape=child.shape, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
                 g.add_edge(parent.val, child.val)
                 dfs(child, level=level+1)               
         g = Network(width='100%', height='60%')
-        g.add_node(self.root.val, shape="ellipse", level=0, title=f"root node of the tree, level=0")
+        g.add_node(self.root.val, shape=self.root.shape, level=0, title=f"root node of the tree, level=0")
         dfs(parent=self.root)
         if not heading:
           g.heading = f"{self.treetype}"

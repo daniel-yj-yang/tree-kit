@@ -69,6 +69,7 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> from treekit import tree
 >>> t2 = tree()
 >>> t2.tree_traversals_summary()
+>>> t2.validate_IP_address()
 
 >>> from treekit import bst
 >>> bst1 = bst(h=4)
