@@ -1,3 +1,7 @@
+ver 0.0.18:
+binarytree.rightsideview
+
+
 2021-12-29
 ----------
 ver 0.0.17: add functions to tree and binarytree classes, and enhance binarytree.show() for unique n_id (node id) 

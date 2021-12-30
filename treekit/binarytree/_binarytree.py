@@ -233,12 +233,26 @@ class binarytree(object):
       while this_level_array:
         next_level_array = []
         for node in this_level_array:
-          if node:
-            res.append(node.val)
+          res.append(node.val)
+          if node.left:
             next_level_array.append(node.left)
+          if node.right:
             next_level_array.append(node.right)
         this_level_array = next_level_array
       return res
+
+    @property
+    def rightsideview(self):
+      def dfs(node, depth = 0):
+          if not node:
+              return
+          if len(res) == depth:
+              res.append(node.val)
+          dfs(node.right, depth + 1)
+          dfs(node.left, depth + 1)
+      res = []
+      dfs(self.root)
+      return res 
 
     @property
     def data(self):
