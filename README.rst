@@ -95,12 +95,11 @@ Screenshot 2: DFS Search Space for Removing Invalid Parentheses
 
 ------------
 
-Screenshot 3: Computation Space for Fibonacci Numbers (n=5): Overlapped vs. Distinct
-------------------------------------------------------------------------------------
+Screenshot 3: Computation Space for Fibonacci Numbers (n=5)
+-----------------------------------------------------------
 |image3|
-|image4|
 
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 .. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
-.. |image3| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_numbers_overlapped_n=5.png
-.. |image4| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_numbers_distinct_n=5.png
+.. |image3| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_n=5.png
+
