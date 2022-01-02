@@ -193,6 +193,26 @@ class tree(object):
                 queue.append((child_node, child_n))
         self.show(heading=f'{heading} (order={order}) (n={n})')
 
+    def climbing_stairs(self, n_steps = 8):
+      ways = 0
+      steps_count = 0
+      self.root = TreeNode(val=f"#{steps_count}")
+      queue = [(self.root, steps_count)]
+      while queue:
+        (curr_node, curr_step_count) = queue.pop()
+        if curr_step_count == n_steps:
+          ways += 1
+        else:
+          if n_steps - curr_step_count >= 1:
+            new_node = TreeNode(val=f"#{curr_step_count+1}")
+            curr_node.children.append(new_node)
+            queue.append((new_node, curr_step_count+1))
+          if n_steps - curr_step_count >= 2:
+            new_node = TreeNode(val=f"#{curr_step_count+2}")
+            curr_node.children.append(new_node)
+            queue.append((new_node, curr_step_count+2))
+      self.show(heading=f"{ways} different ways to climb a staircase with {n_steps} steps to reach the top")
+        
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
       https://leetcode.com/problems/remove-invalid-parentheses/

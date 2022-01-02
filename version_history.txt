@@ -1,3 +1,8 @@
+ver 0.0.22: add several functions to the tree class
+
+tree.climbing_stairs()
+
+
 2022-01-02
 ----------
 ver 0.0.21: add several functions to the tree and binarytree classes
