@@ -6,6 +6,7 @@ binarytree.rightsideview
 tree.Fibonacci_numbers()
 tree.Lucas_numbers()
 tree.Fibonacci_numbers_generalized()
+tree.Tribonacci_numbers()
 tree.word_break_DFS()
 tree.word_break_BFS()
 

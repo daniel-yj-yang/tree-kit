@@ -141,13 +141,17 @@ class tree(object):
       self.show(heading='BFS Search Space for Word Break')
       return res
 
-    def Fibonacci_numbers(self, n=5, a0=1, a1=1, symbol="F", heading="Fibonacci Numbers", distinct=False):
-      self.Fibonacci_numbers_generalized(n=n, order=2, a=[a0, a1], symbol=symbol, heading=heading, distinct=distinct)
+    def Fibonacci_numbers(self, n=5, a=[0, 1], symbol="F", heading="Fibonacci Numbers", distinct=False):
+      self.Fibonacci_numbers_generalized(n=n, a=a, symbol=symbol, heading=heading, distinct=distinct)
 
-    def Lucas_numbers(self, n=5, a0=2, a1=1, symbol="L", heading="Lucas Numbers", distinct=False):
-      self.Fibonacci_numbers_generalized(n=n, order=2, a=[a0, a1], symbol=symbol, heading=heading, distinct=distinct)
+    def Lucas_numbers(self, n=5, a=[2, 1], symbol="L", heading="Lucas Numbers", distinct=False):
+      self.Fibonacci_numbers_generalized(n=n, a=a, symbol=symbol, heading=heading, distinct=distinct)
     
-    def Fibonacci_numbers_generalized(self, n=5, order=3, a=[0, 1, 1], symbol="F", heading="Fibonacci Numbers Generalized", distinct=False):
+    def Tribonacci_numbers(self, n=5, a=[0, 1, 1], symbol="F", heading="Tribonacci Numbers", distinct=False):
+      self.Fibonacci_numbers_generalized(n=n, a=a, symbol=symbol, heading=heading, distinct=distinct)
+
+    def Fibonacci_numbers_generalized(self, n=6, a=[0, 0, 0, 1], symbol="F", heading="Fibonacci Numbers Generalized", distinct=False):
+      order = len(a)
       def fib_generalized(n, order=order):
         F = a[:order]
         if n < order:
