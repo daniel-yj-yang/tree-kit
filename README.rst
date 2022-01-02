@@ -99,7 +99,15 @@ Screenshot 3: Computation Space for Fibonacci Numbers (n=5)
 -----------------------------------------------------------
 |image3|
 
+------------
+
+Screenshot 4: DFS Search Space for Work Break
+---------------------------------------------
+|image4|
+
+
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 .. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
 .. |image3| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_n=5.png
+.. |image4| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Word_Break_DFS_Search_Space.png
 
