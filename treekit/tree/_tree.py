@@ -147,7 +147,7 @@ class tree(object):
       """
       @lru_cache(maxsize=None)
       def fib(n):
-        nonlocal a0, a1
+        F_0, F_1 = a0, a1
         if n < 2:
           if n==0:
             return a0
@@ -155,8 +155,8 @@ class tree(object):
             return a1
         else:
           for i in range(2, n+1):
-            a0, a1 = a1, a0+a1
-          return a1
+            F_0, F_1 = F_1, F_0 + F_1
+          return F_1
       if distinct:
         child1_n = 1
         child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
