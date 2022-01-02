@@ -95,12 +95,14 @@ Screenshot 2: DFS Search Space for Removing Invalid Parentheses
 
 ------------
 
-Screenshot 3: Computation Space for Fibonacci Numbers (n=5, order=2) vs. (n=15, order=8)
-----------------------------------------------------------------------------------------
+Screenshot 3a: Computation Space for Fibonacci Numbers (n=5, order=2)
+---------------------------------------------------------------------
 |image3a|
 
 ------------
 
+Screenshot 3b: Computation Space for Fibonacci Numbers Generalized (n=15, order=8)
+----------------------------------------------------------------------------------
 |image3b|
 
 ------------
