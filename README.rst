@@ -65,12 +65,12 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1 = tree()
 >>> t1.remove_invalid_parenthese('()())a)b()))')
 ['((ab()))', '((a)b())', '(()ab())', '(()a)b()', '(())ab()', '()(ab())', '()(a)b()', '()()ab()']
->>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
->>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 >>> t1.Fibonacci_numbers(n=5)
 >>> t1.Fibonacci_numbers(n=5, distinct=True)
 >>> t1.Lucas_numbers(n=5)
 >>> t1.Lucas_numbers(n=5, distinct=True)
+>>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
+>>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 
 >>> from treekit import tree
 >>> t2 = tree()
