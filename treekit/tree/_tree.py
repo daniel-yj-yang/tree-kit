@@ -173,7 +173,7 @@ class tree(object):
             parent_node.grandchildren.append(child0_node)
             child0_node, child1_node = child1_node, parent_node
           self.root = parent_node
-          self.show(heading=f'{heading}, Distinct (n={n})', direction="RL", edge_smooth_type = "curvedCCW", hidden_edges_set = hidden_edges_set)
+          self.show(heading=f'Computation Space for {heading}, Distinct (n={n})', direction="RL", edge_smooth_type = "curvedCCW", hidden_edges_set = hidden_edges_set)
         else:
           print(f"n should be >= 2")
       else:
