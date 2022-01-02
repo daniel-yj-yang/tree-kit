@@ -65,6 +65,12 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1 = tree()
 >>> t1.remove_invalid_parenthese('()())a)b()))')
 ['((ab()))', '((a)b())', '(()ab())', '(()a)b()', '(())ab()', '()(ab())', '()(a)b()', '()()ab()']
+>>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
+>>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
+>>> t1.Fibonacci_numbers(n=5)
+>>> t1.Fibonacci_numbers(n=5, distinct=True)
+>>> t1.Lucas_numbers(n=5)
+>>> t1.Lucas_numbers(n=5, distinct=True)
 
 >>> from treekit import tree
 >>> t2 = tree()
@@ -87,7 +93,14 @@ Screenshot 2: DFS Search Space for Removing Invalid Parentheses
 ---------------------------------------------------------------
 |image2|
 
+------------
+
+Screenshot 3: Computation Space for Fibonacci Numbers (n=5): Overlapped vs. Distinct
+------------------------------------------------------------------------------------
+|image3|
+|image4|
 
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 .. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
-
+.. |image3| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_numbers_overlapped_n=5.png
+.. |image4| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_numbers_distinct_n=5.png

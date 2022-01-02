@@ -5,18 +5,21 @@
 # License: MIT
 
 
+from functools import lru_cache
 from typing import List, Union
 from pyvis.network import Network # see also https://visjs.org/
 from pathlib import Path
 import webbrowser
-
+from collections import deque
 
 
 class TreeNode:
-    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse"):
+    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse", color: str = None):
         self.val = val
         self.children = []
+        self.grandchildren = []
         self.shape = shape
+        self.color = color
 
     def __repr__(self) -> str:
         return f"TreeNode({self.val})"
@@ -79,6 +82,122 @@ class tree(object):
       self.root.children.extend([level1_three_dots, level1_seven_colons, level1_neither])
       self.show(heading='Validate IP Address')
 
+    def word_break_DFS(self, s: str = "catsandog", wordDict: List[str] = ["cats", "dog", "sand", "and", "cat"]) -> bool:
+      """
+      https://leetcode.com/problems/word-break/
+      """
+      def is_breakable_DFS(start: int = 0, parent: TreeNode = None):
+        nonlocal count
+        if start == n:
+          curr_node = TreeNode(val=f"#{count}. True", color='lightgreen')
+          parent.children.append(curr_node)
+          return True
+        for end in range(start, n):
+            substring = s[start:end+1]
+            curr_node = TreeNode(val=f"#{count}. {substring}")
+            count += 1
+            parent.children.append(curr_node)
+            if s[start:end+1] in wordset and is_breakable_DFS(end+1, parent=curr_node):
+              return True
+        return False
+      n = len(s)
+      wordset = set(wordDict)
+      count = 0
+      self.root = TreeNode(val=f"#{count}. {s}")
+      count += 1
+      res = is_breakable_DFS(start = 0, parent = self.root)
+      self.show(heading='DFS Search Space for Word Break')
+      return res
+
+    def word_break_BFS(self, s: str = "catsandog", wordDict: List[str] = ["cats", "dog", "sand", "and", "cat"]) -> bool:
+      """
+      https://leetcode.com/problems/word-break/
+      """
+      count = 0
+      self.root = TreeNode(val=f"#{count}.")
+      count += 1
+      n = len(s)
+      word_set = set(wordDict)
+      start_idx_queue = deque()
+      start_idx_visited = set()
+      start_idx_queue.append((0, self.root))
+      res = False
+      while start_idx_queue:
+        (start, parent_node) = start_idx_queue.popleft()
+        if start in start_idx_visited:
+          continue
+        for end in range(start, n):
+          if s[start:end+1] in word_set:
+            curr_node = TreeNode(val=f"#{count}. {s[start:end+1]}")
+            count += 1
+            parent_node.children.append(curr_node)
+            start_idx_queue.append((end+1, curr_node))
+            if end == n-1:
+              leaf_node = TreeNode(val=f"#{count}. True", color='lightgreen')
+              curr_node.children.append(leaf_node)
+              res = True
+              break
+        start_idx_visited.add(start)
+      self.show(heading='BFS Search Space for Word Break')
+      return res
+
+    def Fibonacci_numbers(self, n=5, F0=1, F1=1, symbol="F", heading="Fibonacci Numbers", distinct=False):
+      """
+      Note: DAG: Directed Acyclic Graph
+      """
+      @lru_cache(maxsize=None)
+      def fib(n):
+        a = F0
+        b = F1
+        if n < 2:
+          if n==0:
+            return a
+          elif n==1:
+            return b
+        else:
+          for i in range(2, n+1):
+            a, b = b, a+b
+          return b
+      if distinct:
+        child1_n = 1
+        child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
+        child0_n = 0
+        child0_node = TreeNode(val=f"{symbol}{child0_n}={fib(child0_n)}")
+        child1_node.children.append(child0_node)
+        hidden_edges_set = set()
+        hidden_edges_set.add((id(child1_node), id(child0_node)))
+        if n >= 2:
+          for i in range(2, n+1):
+            parent_node = TreeNode(val=f"{symbol}{i}={fib(i)}")
+            parent_node.children.append(child1_node)
+            parent_node.grandchildren.append(child0_node)
+            child0_node, child1_node = child1_node, parent_node
+          self.root = parent_node
+          self.show(heading=f'{heading}, Distinct (n={n})', direction="RL", edge_smooth_type = "curvedCCW", hidden_edges_set = hidden_edges_set)
+        else:
+          print(f"n should be >= 2")
+      else:
+        self.root = TreeNode(val=f"{symbol}{n}={fib(n)}")
+        queue = [(self.root,n),]
+        while queue:
+          (curr_node, curr_n) = queue.pop()
+          child1_n = curr_n-1
+          child0_n = curr_n-2
+          if child1_n >= 0:
+            child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
+            curr_node.children.append(child1_node)
+            if child1_n > 1:
+              queue.append((child1_node, child1_n))
+          if child0_n >= 0:
+            child0_node = TreeNode(val=f"{symbol}{child0_n}={fib(child0_n)}")
+            curr_node.children.append(child0_node)
+            if child0_n > 1:
+              queue.append((child0_node, child0_n))
+        self.show(heading=f'{heading} (n={n})')
+
+    def Lucas_numbers(self, n=5, **options):
+      self.Fibonacci_numbers(n=n, F0=2, F1=1, symbol="L", heading="Lucas Numbers", **options)
+      
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
       https://leetcode.com/problems/remove-invalid-parentheses/
@@ -121,23 +240,44 @@ class tree(object):
       self.show(heading='DFS Search Space for Removing Invalid Parentheses')
       return res
 
-    def show(self, filename: str = 'output.html', heading: str = None):
+    def show(self, filename: str = 'output.html', heading: str = None, direction: str = "UD", edge_smooth_type: str = False, hidden_edges_set: set = set()):
         if not self.root:
             return
-        def dfs(parent, level=0):
-            if parent.children:
-              for child in parent.children:
-                g.add_node(n_id=id(child), label=child.val, shape=child.shape, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+        def dfs_add_child(parent, level=0):
+          if parent.children:
+            for child in parent.children:
+              if child.color:
+                g.add_node(n_id=id(child), label=child.val, shape=child.shape, color=child.color, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+              else:
+                g.add_node(n_id=id(child), label=child.val, shape=child.shape,                    level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+              if (id(parent), id(child)) in hidden_edges_set:
+                g.add_edge(source=id(parent), to=id(child), hidden = True)
+              else:
                 g.add_edge(source=id(parent), to=id(child))
-                dfs(child, level=level+1)               
+              dfs_add_child(child, level=level+1)
+        def dfs_add_grandchildren_edge(parent):
+          if parent.grandchildren:
+            for grandchild in parent.grandchildren:
+              if (id(parent), id(grandchild)) in hidden_edges_set:
+                g.add_edge(source=id(parent), to=id(grandchild), hidden=True)
+              else:
+                g.add_edge(source=id(parent), to=id(grandchild))
+          if parent.children:
+            for child in parent.children:
+              dfs_add_grandchildren_edge(child)
         g = Network(width='100%', height='60%')
-        g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape, level=0, title=f"root node of the tree, level=0")
-        dfs(parent=self.root)
+        g.set_edge_smooth(smooth_type = edge_smooth_type)
+        if self.root.color:
+          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape, color=self.root.color, level=0, title=f"root node of the tree, level=0")
+        else:
+          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape,                        level=0, title=f"root node of the tree, level=0")
+        dfs_add_child(parent=self.root)
+        dfs_add_grandchildren_edge(parent=self.root)
         if not heading:
           g.heading = f"{self.treetype}"
         else:
           g.heading = heading
-        g.set_options("""
+        options = """
 var options = {
   "nodes": {
     "font": {
@@ -152,12 +292,24 @@ var options = {
     },
     "color": {
       "inherit": true
-    },
-    "smooth": false
+    },"""
+        if edge_smooth_type:
+          options += f"""
+    "smooth": {{
+        "type": "{edge_smooth_type}",
+        "forceDirection": "none"
+        }}"""
+        else:
+          options += """
+    "smooth": false"""
+        options += """
   },
   "layout": {
     "hierarchical": {
-      "enabled": true,
+      "enabled": true,"""
+        options += f"""
+      "direction": "{direction}","""
+        options += """
       "sortMethod": "directed"
     }
   },
@@ -174,7 +326,8 @@ var options = {
       "enabled": true,
       "filter": "layout,physics" 
   }
-}""")
+}"""
+        g.set_options(options)
         full_filename = Path.cwd() / filename
         g.write_html(full_filename.as_posix())
         webbrowser.open(full_filename.as_uri(), new = 2)
