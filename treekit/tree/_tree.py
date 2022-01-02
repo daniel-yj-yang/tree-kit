@@ -142,62 +142,53 @@ class tree(object):
       return res
 
     def Fibonacci_numbers(self, n=5, a0=1, a1=1, symbol="F", heading="Fibonacci Numbers", distinct=False):
-      """
-      Note: DAG: Directed Acyclic Graph
-      """
-      @lru_cache(maxsize=None)
-      def fib(n):
-        F_0, F_1 = a0, a1
-        if n < 2:
-          if n==0:
-            return F_0
-          elif n==1:
-            return F_1
+      self.Fibonacci_numbers_generalized(n=n, order=2, a=[a0, a1], symbol=symbol, heading=heading, distinct=distinct)
+
+    def Lucas_numbers(self, n=5, a0=2, a1=1, symbol="L", heading="Lucas Numbers", distinct=False):
+      self.Fibonacci_numbers_generalized(n=n, order=2, a=[a0, a1], symbol=symbol, heading=heading, distinct=distinct)
+    
+    def Fibonacci_numbers_generalized(self, n=5, order=3, a=[0, 1, 1], symbol="F", heading="Fibonacci Numbers Generalized", distinct=False):
+      def fib_generalized(n, order=order):
+        F = a[:order]
+        if n < order:
+          return F[n]
         else:
-          for i in range(2, n+1):
-            F_i = F_1 + F_0
-            F_1, F_0 = F_i, F_1
+          for i in range(order, n+1):
+            F_i = sum(F)
+            F[:] = F[1:] + [F_i]
           return F_i
       if distinct:
-        child1_n = 1
-        child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
-        child0_n = 0
-        child0_node = TreeNode(val=f"{symbol}{child0_n}={fib(child0_n)}")
-        child1_node.children.append(child0_node)
+        child_nodes = [TreeNode(val=f"{symbol}{child_i}={fib_generalized(n=child_i)}") for child_i in range(order)]
         hidden_edges_set = set()
-        hidden_edges_set.add((id(child1_node), id(child0_node)))
-        if n >= 2:
-          for i in range(2, n+1):
-            parent_node = TreeNode(val=f"{symbol}{i}={fib(i)}")
-            parent_node.children.append(child1_node)
-            parent_node.grandchildren.append(child0_node)
-            child0_node, child1_node = child1_node, parent_node
+        for child_i in range(order-1, 0, -1):
+          child_nodes[child_i].children.append(child_nodes[child_i-1])
+          for grandchild_i in range(child_i-1, -1, -1):
+            hidden_edges_set.add((id(child_nodes[child_i]), id(child_nodes[grandchild_i])))
+        if n >= order:
+          for i in range(order, n+1):
+            parent_node = TreeNode(val=f"{symbol}{i}={fib_generalized(n=i)}")
+            parent_node.children.append(child_nodes[order-1])
+            for j in range(order-2, -1, -1):
+              parent_node.grandchildren.append(child_nodes[j])
+            child_nodes[:] = child_nodes[1:] + [parent_node]
           self.root = parent_node
-          self.show(heading=f'Computation Space for {heading}, Distinct (n={n})', direction="RL", edge_smooth_type = "curvedCCW", hidden_edges_set = hidden_edges_set)
+          self.show(heading=f'Computation Space for {heading} (order={order}), Distinct (n={n})', direction="RL", edge_smooth_type = "curvedCCW", hidden_edges_set = hidden_edges_set)
         else:
-          print(f"n should be >= 2")
+          print(f"n={n} should be >= order={order}")
       else:
-        self.root = TreeNode(val=f"{symbol}{n}={fib(n)}")
+        self.root = TreeNode(val=f"{symbol}{n}={fib_generalized(n=n)}")
         queue = [(self.root,n),]
         while queue:
           (curr_node, curr_n) = queue.pop()
-          child1_n = curr_n-1
-          child0_n = curr_n-2
-          if child1_n >= 0:
-            child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
-            curr_node.children.append(child1_node)
-            if child1_n > 1:
-              queue.append((child1_node, child1_n))
-          if child0_n >= 0:
-            child0_node = TreeNode(val=f"{symbol}{child0_n}={fib(child0_n)}")
-            curr_node.children.append(child0_node)
-            if child0_n > 1:
-              queue.append((child0_node, child0_n))
-        self.show(heading=f'{heading} (n={n})')
+          for i in range(1, order+1):
+            child_n = curr_n - i
+            if child_n >= 0:
+              child_node = TreeNode(val=f"{symbol}{child_n}={fib_generalized(n=child_n)}")
+              curr_node.children.append(child_node)
+              if child_n > (order-1):
+                queue.append((child_node, child_n))
+        self.show(heading=f'{heading} (order={order}) (n={n})')
 
-    def Lucas_numbers(self, n=5, **options):
-      self.Fibonacci_numbers(n=n, a0=2, a1=1, symbol="L", heading="Lucas Numbers", **options)
-      
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
       https://leetcode.com/problems/remove-invalid-parentheses/

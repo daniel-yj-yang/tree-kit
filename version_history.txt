@@ -1,10 +1,11 @@
 2022-01-02
 ----------
-ver 0.0.19: add several functions to the tree and binarytree classes
+ver 0.0.20: add several functions to the tree and binarytree classes
 
 binarytree.rightsideview
 tree.Fibonacci_numbers()
 tree.Lucas_numbers()
+tree.Fibonacci_numbers_generalized()
 tree.word_break_DFS()
 tree.word_break_BFS()
 

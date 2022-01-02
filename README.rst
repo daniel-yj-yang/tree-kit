@@ -68,7 +68,7 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1.Fibonacci_numbers(n=5)
 >>> t1.Fibonacci_numbers(n=5, distinct=True)
 >>> t1.Lucas_numbers(n=5)
->>> t1.Lucas_numbers(n=5, distinct=True)
+>>> t1.Fibonacci_numbers_generalized(n=15, order=8, a=[0]*7+[1], distinct=True)
 >>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 >>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 
@@ -95,9 +95,10 @@ Screenshot 2: DFS Search Space for Removing Invalid Parentheses
 
 ------------
 
-Screenshot 3: Computation Space for Fibonacci Numbers (n=5)
------------------------------------------------------------
-|image3|
+Screenshot 3: Computation Space for Fibonacci Numbers (n=5, order=2) vs. (n=15, order=8)
+----------------------------------------------------------------------------------------
+|image3a|
+|image3b|
 
 ------------
 
@@ -108,6 +109,7 @@ Screenshot 4: DFS Search Space for Work Break
 
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 .. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
-.. |image3| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_n=5.png
+.. |image3a| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_n=5.png
+.. |image3b| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_Generalized_n=15_order=8.png
 .. |image4| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Word_Break_DFS_Search_Space.png
 
