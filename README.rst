@@ -68,6 +68,7 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1.Fibonacci_numbers(n=5, a=[0, 1])
 >>> t1.Fibonacci_numbers(n=5, a=[0, 1], distinct=True)
 >>> t1.Lucas_numbers(n=5)
+>>> t1.Tribonacci_numbers(n=8, distinct=True)
 >>> t1.Fibonacci_numbers_generalized(n=15, a=[0]*7+[1], distinct=True)
 >>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 >>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
