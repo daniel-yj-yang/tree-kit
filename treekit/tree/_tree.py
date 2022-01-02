@@ -141,23 +141,22 @@ class tree(object):
       self.show(heading='BFS Search Space for Word Break')
       return res
 
-    def Fibonacci_numbers(self, n=5, F0=1, F1=1, symbol="F", heading="Fibonacci Numbers", distinct=False):
+    def Fibonacci_numbers(self, n=5, a0=1, a1=1, symbol="F", heading="Fibonacci Numbers", distinct=False):
       """
       Note: DAG: Directed Acyclic Graph
       """
       @lru_cache(maxsize=None)
       def fib(n):
-        a = F0
-        b = F1
+        nonlocal a0, a1
         if n < 2:
           if n==0:
-            return a
+            return a0
           elif n==1:
-            return b
+            return a1
         else:
           for i in range(2, n+1):
-            a, b = b, a+b
-          return b
+            a0, a1 = a1, a0+a1
+          return a1
       if distinct:
         child1_n = 1
         child1_node = TreeNode(val=f"{symbol}{child1_n}={fib(child1_n)}")
@@ -196,7 +195,7 @@ class tree(object):
         self.show(heading=f'{heading} (n={n})')
 
     def Lucas_numbers(self, n=5, **options):
-      self.Fibonacci_numbers(n=n, F0=2, F1=1, symbol="L", heading="Lucas Numbers", **options)
+      self.Fibonacci_numbers(n=n, a0=2, a1=1, symbol="L", heading="Lucas Numbers", **options)
       
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
