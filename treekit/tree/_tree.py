@@ -196,7 +196,7 @@ class tree(object):
     def climbing_stairs(self, n_steps = 8):
       ways = 0
       steps_count = 0
-      self.root = TreeNode(val=f"#{steps_count}")
+      self.root = TreeNode(val=f"#{steps_count}", color='lightgray')
       queue = [(self.root, steps_count)]
       while queue:
         (curr_node, curr_step_count) = queue.pop()
@@ -204,7 +204,7 @@ class tree(object):
           ways += 1
         else:
           if n_steps - curr_step_count >= 1:
-            new_node = TreeNode(val=f"#{curr_step_count+1}")
+            new_node = TreeNode(val=f"#{curr_step_count+1}", color='lightgreen')
             curr_node.children.append(new_node)
             queue.append((new_node, curr_step_count+1))
           if n_steps - curr_step_count >= 2:
