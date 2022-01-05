@@ -73,6 +73,8 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1.word_break_DFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 >>> t1.word_break_BFS(s = "catsanddog", wordDict = ["cats", "dog", "sand", "and", "cat"])
 >>> t1.climbing_stairs(n_steps = 8)
+>>> t1.coin_change(coins = [3, 5], amount = 12)
+>>> t1.coin_change(coins = [1, 2, 3], amount = 6)
 
 >>> from treekit import tree
 >>> t2 = tree()
