@@ -1,6 +1,7 @@
 ver 0.0.22: add several functions to the tree class
 
 tree.climbing_stairs()
+tree.coin_change()
 
 
 2022-01-02

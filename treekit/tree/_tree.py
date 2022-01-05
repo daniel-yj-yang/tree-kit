@@ -212,7 +212,31 @@ class tree(object):
             curr_node.children.append(new_node)
             queue.append((new_node, curr_step_count+2))
       self.show(heading=f"{ways} different ways to climb a staircase with {n_steps} steps to reach the top")
-        
+    
+    def coin_change(self, coins = [1, 2, 3], amount = 6):
+      @lru_cache(maxsize=None)
+      def fewest_number_of_coins_to_make_up_amount(amount: int) -> int:
+          dp = [float('inf')] * (amount + 1)
+          dp[0] = 0
+          for coin in coins:
+              for x in range(coin, amount + 1):
+                  dp[x] = min(dp[x], dp[x - coin] + 1)
+          return dp[amount] if dp[amount] != float('inf') else -1 
+      self.root = TreeNode(val=f"F({amount}) = min. # of coins\nto make up {amount} = {fewest_number_of_coins_to_make_up_amount(amount = amount)}")
+      queue = [(self.root, amount)]
+      while queue:
+        (curr_node, amount_left) = queue.pop()
+        if amount_left > 0:
+          for coin in coins:
+            if amount_left - coin >= 0:
+                if amount_left - coin == 0:
+                  new_node = TreeNode(val=f"used 1 ¢{coin};\nF(0) = 0, we are done!", color='lightgreen')
+                else:
+                  new_node = TreeNode(val=f"used 1 ¢{coin};\nF({amount_left - coin}) = min. # of coins\nto make up {amount_left - coin} = {fewest_number_of_coins_to_make_up_amount(amount = amount_left - coin)}")
+            curr_node.children.append(new_node)
+            queue.append((new_node, amount_left - coin))
+      self.show(heading=f"Recursive space to find the minimal # of coins to make up amount={amount} with coin denominations of {coins}; The answer is # of the edges of the shortest path to make up the amount; as you can see, always try to use the largest demonination first whenever possible; finally, F(amount) = min([F(amount - coin) for coin in coins]) + 1")
+
     def remove_invalid_parenthese(self, s: str = '()())a)b()))'):
       """
       https://leetcode.com/problems/remove-invalid-parentheses/
