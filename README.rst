@@ -75,6 +75,7 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> t1.climbing_stairs(n_steps = 8)
 >>> t1.coin_change(coins = [3, 5], amount = 12)
 >>> t1.coin_change(coins = [1, 2, 3], amount = 6)
+>>> t1.decode_ways(s = "11106")
 
 >>> from treekit import tree
 >>> t2 = tree()

@@ -14,12 +14,13 @@ from collections import deque
 
 
 class TreeNode:
-    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse", color: str = None):
+    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse", color: str = None, image: str = None):
         self.val = val
         self.children = []
         self.grandchildren = []
         self.shape = shape
         self.color = color
+        self.image = image
 
     def __repr__(self) -> str:
         return f"TreeNode({self.val})"
@@ -64,6 +65,44 @@ class tree(object):
       self.root.children.extend([node_DFS, node_BFS])
       self.show(heading='Tree Traversals')
 
+    def disjoint_set(self):
+      self.quick_find = TreeNode('Quick Find', shape='text')
+      self.quick_union = TreeNode('Quick Union', shape='text')
+      self.union_by_rank = TreeNode('Union by Rank', shape='text')
+      self.path_compression = TreeNode('Path Compression', shape='text')
+      self.optimized = TreeNode('Optimized (Path Compression + Union by Rank)', shape='text')
+      self.quick_find.children.append(self.quick_union)
+      self.quick_union.children.append(self.union_by_rank)
+      self.union_by_rank.children.append(self.path_compression)
+      self.path_compression.children.append(self.optimized)
+      self.root = self.quick_find
+      self.show(heading="Disjoint Set (Union-Find) Data Structure")
+
+    def tree_traversal(self):
+      self.root = TreeNode('Tree Traversal', shape='text')
+      self.DFS = TreeNode('DFS', shape='text')
+      self.inorder = TreeNode('Inorder (Left Subtree -> *Root* -> Right Subtree)', shape='text')
+      self.inorder_uses = TreeNode('Nodes of BST in non-decreasing order', shape='text')
+      self.inorder_recursion = TreeNode('Recursion', shape='text')
+      self.inorder_recursion_details = TreeNode("""
+
+def inorder(curr):
+  if curr:
+    inorder(curr.left)
+    res.append(curr.val)
+    inorder(curr.right)
+res=[]
+inorder(root)
+
+
+""", shape='text')
+      self.root.children.append(self.DFS)
+      self.DFS.children.append(self.inorder)
+      self.inorder.children.append(self.inorder_uses)
+      self.inorder_uses.children.append(self.inorder_recursion)
+      self.inorder_recursion.children.append(self.inorder_recursion_details)
+      self.show(heading='Tree Traversal')
+
     def validate_IP_address(self):
       self.root = TreeNode('IP string', shape = 'text')
       level1_three_dots = TreeNode('Contains 3 dots', shape='text')
@@ -82,9 +121,47 @@ class tree(object):
       self.root.children.extend([level1_three_dots, level1_seven_colons, level1_neither])
       self.show(heading='Validate IP Address')
 
+    def decode_ways(self, s: str = "11106") -> int:
+      """
+      The original question: https://leetcode.com/problems/decode-ways/
+      """
+      def decode(start: int = 0, parent: TreeNode = None, msg: str = ''):
+        nonlocal count, success
+        if start == len(s): # reach the end
+          curr_node = TreeNode(val=f"Successful\n\"{msg}\"", color='lightgreen')
+          parent.children.append(curr_node)
+          success += 1
+        else:
+          making_progress = False
+          # try to decode single digit
+          if int(s[start]) != 0:
+            curr_node = TreeNode(val=f"#{count}. \"{s[start]}\"=\"{chr(64+int(s[start]))}\";\nleft=\"{s[start+1:]}\"")
+            count += 1
+            parent.children.append(curr_node)
+            decode(start+1, curr_node, msg+chr(64+int(s[start])))
+            making_progress = True
+          # try to decode two digits
+          if s[start] != '0' and start < len(s)-1: # allows 2 digit
+            if int(s[start:start+2]) <= 26:
+              curr_node = TreeNode(val=f"#{count}. \"{s[start:start+2]}\"=\"{chr(64+int(s[start:start+2]))}\";\nleft=\"{s[start+2:]}\"")
+              count += 1
+              parent.children.append(curr_node)
+              decode(start+2, curr_node, msg+chr(64+int(s[start:start+2])))
+              making_progress = True
+          # not making progress
+          if not making_progress:
+            curr_node = TreeNode(val=f"Unsuccessful", color='orange')
+            parent.children.append(curr_node)
+      success = 0
+      count = 0
+      self.root = TreeNode(val=f"#{count}. left=\"{s}\"")
+      count += 1
+      decode(0, self.root)
+      self.show(heading=f'DFS Search Tree to Decode \"{s}\" Into Letters (Result: {success} Successful Ways)')
+
     def word_break_DFS(self, s: str = "catsandog", wordDict: List[str] = ["cats", "dog", "sand", "and", "cat"]) -> bool:
       """
-      https://leetcode.com/problems/word-break/
+      The original question: https://leetcode.com/problems/word-break/
       """
       def is_breakable_DFS(start: int = 0, parent: TreeNode = None):
         nonlocal count
@@ -105,7 +182,7 @@ class tree(object):
       count = 0
       self.root = TreeNode(val=f"#{count}. {s}")
       count += 1
-      res = is_breakable_DFS(start = 0, parent = self.root)
+      is_breakable_DFS(start = 0, parent = self.root)
       self.show(heading='DFS Search Space for Word Break')
       return res
 
