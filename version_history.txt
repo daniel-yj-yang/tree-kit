@@ -4,7 +4,7 @@ tree.climbing_stairs()
 tree.coin_change()
 tree.decode_ways()
 tree.disjoint_set()
-tree.tree_traversal()
+tree.binary_tree_traversal()
 
 
 2022-01-02

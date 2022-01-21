@@ -78,41 +78,137 @@ class tree(object):
       self.root = self.quick_find
       self.show(heading="Disjoint Set (Union-Find) Data Structure")
 
-    def tree_traversal(self):
-      self.root = TreeNode('Tree Traversal', shape='text')
+    def binary_tree_traversal(self):
+      self.root = TreeNode('Binary Tree Traversal', shape='text')
       self.DFS = TreeNode('DFS', shape='text')
       self.BFS = TreeNode('BFS', shape='text')
+      self.BFS_levelorder = TreeNode('Level Order', shape='text')
+      self.BFS_uses = TreeNode('Usage: Guaranteed to find a solution within specific levels in a chess game', shape='text')
+      self.BFS_recursion = TreeNode('Recursion [Easy]', shape='text')
+      self.BFS_recursion_details = TreeNode("""\
+def DFS(curr, level = 0):
+    if curr:
+        if len(res) == level:
+            res.append([])
+        res[level].append(curr.val)
+        DFS(curr.left, level+1)
+        DFS(curr.right, level+1)
+res = []
+DFS(root)
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.BFS_iteration = TreeNode('Iteration [Medium]', shape='text')
+      self.BFS_iteration_details = TreeNode("""\
+res = []
+if not root:
+    return res
+else:
+    queue = [root]
+level = 0
+while queue:
+    res.append([])
+    n = len(queue)
+    for i in range(n):
+        curr = queue.pop()
+        res[level].append(curr.val)
+        if curr.left:
+            queue.insert(0, curr.left)
+        if curr.right:
+            queue.insert(0, curr.right)
+    level += 1
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.BFS_recursion_complexity = TreeNode("""\
+Time Complexity: O(|V|+|E|)
+Space Complexity: O(|V|+|E|)""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'}, color='#FFA500')
+      self.BFS_iteration_complexity = TreeNode("""\
+Time Complexity: O(|V|+|E|)
+Space Complexity: O(|V|)""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'}, color='#FFA500')
+      self.BFS.children.append(self.BFS_levelorder)
+      self.BFS_levelorder.children.append(self.BFS_uses)
+      self.BFS_uses.children.append(self.BFS_recursion)
+      self.BFS_uses.children.append(self.BFS_iteration)
+      self.BFS_recursion.children.append(self.BFS_recursion_details)
+      self.BFS_iteration.children.append(self.BFS_iteration_details)
+      self.BFS_recursion_details.children.append(self.BFS_recursion_complexity)
+      self.BFS_iteration_details.children.append(self.BFS_iteration_complexity)
+      self.preorder = TreeNode('Preorder (*Root* -> Left Subtree -> Right Subtree)', shape='text')
+      self.preorder_uses = TreeNode('Usage: Copy of the tree', shape='text')
       self.inorder = TreeNode('Inorder (Left Subtree -> *Root* -> Right Subtree)', shape='text')
       self.inorder_uses = TreeNode('Usage: Nodes of BST in non-decreasing order', shape='text')
-      self.inorder_recursion = TreeNode('Recursion', shape='text')
+      self.inorder_recursion = TreeNode('Recursion [Easy]', shape='text')
       self.inorder_recursion_details = TreeNode("""\
-def inorder(curr):
-  if curr:
-    inorder(curr.left)
-    res.append(curr.val)
-    inorder(curr.right)
-res=[]
-inorder(root)""", shape='box', font = {'face': 'Monospace', 'align': 'left', 'size': '22'})
-      self.inorder_iteration = TreeNode('Iteration', shape='text')
+def DFS(curr):
+    if curr:
+        DFS(curr.left)
+        res.append(curr.val)
+        DFS(curr.right)
+res = []
+DFS(root)
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.inorder_iteration = TreeNode('Iteration [Medium]', shape='text')
       self.inorder_iteration_details = TreeNode("""\
 res = []
 curr, stack = root, []
-while curr or stack:
-    while curr:
+while True:
+    if curr:
         stack.append(curr)
         curr = curr.left
-    curr = stack.pop()
-    res.append(curr)
-    curr = curr.right""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+    elif stack:
+        curr = stack.pop()
+        res.append(curr.val)
+        curr = curr.right
+    else:
+        break
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.O_of_n_complexity = TreeNode("""\
+Time Complexity: O(n)
+Space Complexity: O(n)""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'}, color='#FFA500')
+      self.preorder_recursion = TreeNode('Recursion [Easy]', shape='text')
+      self.preorder_recursion_details = TreeNode("""\
+def DFS(curr):
+    if curr:
+        res.append(curr.val)
+        DFS(curr.left)
+        DFS(curr.right)
+res = []
+DFS(root)
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.preorder_iteration = TreeNode('Iteration [Medium]', shape='text')
+      self.preorder_iteration_details = TreeNode("""\
+res = []
+if root:
+    stack = [root,]
+else:
+    return res
+while True:
+    if stack:
+        curr = stack.pop()
+        res.append(curr.val)
+        if curr.right:
+            stack.append(curr.right)
+        if curr.left:
+            stack.append(curr.left)
+    else:
+        break
+return res""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
       self.root.children.append(self.DFS)
       self.root.children.append(self.BFS)
+      self.DFS.children.append(self.preorder)
       self.DFS.children.append(self.inorder)
+      self.preorder.children.append(self.preorder_uses)
       self.inorder.children.append(self.inorder_uses)
       self.inorder_uses.children.append(self.inorder_recursion)
       self.inorder_recursion.children.append(self.inorder_recursion_details)
       self.inorder_uses.children.append(self.inorder_iteration)
       self.inorder_iteration.children.append(self.inorder_iteration_details)
-      self.show(heading='Tree Traversal', nodeDistance=350, height='90%')
+      self.preorder_uses.children.append(self.preorder_recursion)
+      self.preorder_recursion.children.append(self.preorder_recursion_details)
+      self.preorder_uses.children.append(self.preorder_iteration)
+      self.preorder_iteration.children.append(self.preorder_iteration_details)
+      self.inorder_recursion_details.children.append(self.O_of_n_complexity)
+      self.inorder_iteration_details.children.append(self.O_of_n_complexity)
+      self.preorder_recursion_details.children.append(self.O_of_n_complexity)
+      self.preorder_iteration_details.children.append(self.O_of_n_complexity)
+      self.show(heading='Tree Traversal', nodeDistance=500, height='90%', levelSeparation=300)
 
     def validate_IP_address(self):
       self.root = TreeNode('IP string', shape = 'text')
@@ -371,7 +467,7 @@ while curr or stack:
       self.show(heading='DFS Search Space for Removing Invalid Parentheses')
       return res
 
-    def show(self, width='100%', height='60%', filename: str = 'output.html', heading: str = None, direction: str = "UD", edge_smooth_type: str = False, hidden_edges_set: set = set(), nodeDistance: int = 150, configure: bool = True):
+    def show(self, width='100%', height='60%', filename: str = 'output.html', heading: str = None, direction: str = "UD", edge_smooth_type: str = False, hidden_edges_set: set = set(), nodeDistance: int = 150, levelSeparation: int = 300, configure: bool = True):
         if not self.root:
             return
         def dfs_add_child(parent, level=0):
@@ -439,6 +535,7 @@ var options = {
     "hierarchical": {
       "enabled": true,"""
         options += f"""
+      "levelSeparation": {levelSeparation},
       "direction": "{direction}","""
         options += """
       "sortMethod": "directed"
