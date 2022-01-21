@@ -14,13 +14,13 @@ from collections import deque
 
 
 class TreeNode:
-    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse", color: str = None, image: str = None):
+    def __init__(self, val: Union[float, int, str] = None, shape: str = "ellipse", color: str = None, **options):
         self.val = val
         self.children = []
         self.grandchildren = []
         self.shape = shape
         self.color = color
-        self.image = image
+        self.options = options
 
     def __repr__(self) -> str:
         return f"TreeNode({self.val})"
@@ -81,27 +81,38 @@ class tree(object):
     def tree_traversal(self):
       self.root = TreeNode('Tree Traversal', shape='text')
       self.DFS = TreeNode('DFS', shape='text')
+      self.BFS = TreeNode('BFS', shape='text')
       self.inorder = TreeNode('Inorder (Left Subtree -> *Root* -> Right Subtree)', shape='text')
-      self.inorder_uses = TreeNode('Nodes of BST in non-decreasing order', shape='text')
+      self.inorder_uses = TreeNode('Usage: Nodes of BST in non-decreasing order', shape='text')
       self.inorder_recursion = TreeNode('Recursion', shape='text')
-      self.inorder_recursion_details = TreeNode("""
-
+      self.inorder_recursion_details = TreeNode("""\
 def inorder(curr):
   if curr:
     inorder(curr.left)
     res.append(curr.val)
     inorder(curr.right)
 res=[]
-inorder(root)
-
-
-""", shape='text')
+inorder(root)""", shape='box', font = {'face': 'Monospace', 'align': 'left', 'size': '22'})
+      self.inorder_iteration = TreeNode('Iteration', shape='text')
+      self.inorder_iteration_details = TreeNode("""\
+res = []
+curr, stack = root, []
+while curr or stack:
+    while curr:
+        stack.append(curr)
+        curr = curr.left
+    curr = stack.pop()
+    res.append(curr)
+    curr = curr.right""", shape='box', font={'face': 'Monospace', 'align': 'left', 'size': '22'})
       self.root.children.append(self.DFS)
+      self.root.children.append(self.BFS)
       self.DFS.children.append(self.inorder)
       self.inorder.children.append(self.inorder_uses)
       self.inorder_uses.children.append(self.inorder_recursion)
       self.inorder_recursion.children.append(self.inorder_recursion_details)
-      self.show(heading='Tree Traversal')
+      self.inorder_uses.children.append(self.inorder_iteration)
+      self.inorder_iteration.children.append(self.inorder_iteration_details)
+      self.show(heading='Tree Traversal', nodeDistance=350, height='90%')
 
     def validate_IP_address(self):
       self.root = TreeNode('IP string', shape = 'text')
@@ -182,7 +193,7 @@ inorder(root)
       count = 0
       self.root = TreeNode(val=f"#{count}. {s}")
       count += 1
-      is_breakable_DFS(start = 0, parent = self.root)
+      res = is_breakable_DFS(start = 0, parent = self.root)
       self.show(heading='DFS Search Space for Word Break')
       return res
 
@@ -360,16 +371,16 @@ inorder(root)
       self.show(heading='DFS Search Space for Removing Invalid Parentheses')
       return res
 
-    def show(self, filename: str = 'output.html', heading: str = None, direction: str = "UD", edge_smooth_type: str = False, hidden_edges_set: set = set()):
+    def show(self, width='100%', height='60%', filename: str = 'output.html', heading: str = None, direction: str = "UD", edge_smooth_type: str = False, hidden_edges_set: set = set(), nodeDistance: int = 150, configure: bool = True):
         if not self.root:
             return
         def dfs_add_child(parent, level=0):
           if parent.children:
             for child in parent.children:
               if child.color:
-                g.add_node(n_id=id(child), label=child.val, shape=child.shape, color=child.color, level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+                g.add_node(n_id=id(child), label=child.val, shape=child.shape, color=child.color, level=level+1, title=f"child node of Node({parent.val}), level={level+1}", **child.options)
               else:
-                g.add_node(n_id=id(child), label=child.val, shape=child.shape,                    level=level+1, title=f"child node of Node({parent.val}), level={level+1}")
+                g.add_node(n_id=id(child), label=child.val, shape=child.shape,                    level=level+1, title=f"child node of Node({parent.val}), level={level+1}", **child.options)
               if (id(parent), id(child)) in hidden_edges_set:
                 g.add_edge(source=id(parent), to=id(child), hidden = True)
               else:
@@ -385,12 +396,12 @@ inorder(root)
           if parent.children:
             for child in parent.children:
               dfs_add_grandchildren_edge(child)
-        g = Network(width='100%', height='60%')
+        g = Network(width=width, height=height)
         g.set_edge_smooth(smooth_type = edge_smooth_type)
         if self.root.color:
-          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape, color=self.root.color, level=0, title=f"root node of the tree, level=0")
+          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape, color=self.root.color, level=0, title=f"root node of the tree, level=0", **self.root.options)
         else:
-          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape,                        level=0, title=f"root node of the tree, level=0")
+          g.add_node(n_id=id(self.root), label=self.root.val, shape=self.root.shape,                        level=0, title=f"root node of the tree, level=0", **self.root.options)
         dfs_add_child(parent=self.root)
         dfs_add_grandchildren_edge(parent=self.root)
         if not heading:
@@ -436,16 +447,23 @@ var options = {
   "physics": {
     "hierarchicalRepulsion": {
       "centralGravity": 0,
-      "springConstant": 0.2,
-      "nodeDistance": 150
+      "springConstant": 0.2,"""
+        options += f"""
+      "nodeDistance": {nodeDistance}"""
+        options += """
     },
     "minVelocity": 0.75,
     "solver": "hierarchicalRepulsion"
-  },
+  }"""
+        if configure:
+          options += """,
   "configure": {
       "enabled": true,
       "filter": "layout,physics" 
   }
+}"""
+        else:
+          options += """
 }"""
         g.set_options(options)
         full_filename = Path.cwd() / filename
