@@ -86,6 +86,13 @@ The sum of depths from the left and right subtrees of Node(8) is 9
 >>> bst1 = bst(h=4)
 >>> bst1.show()
 
+>>> from treekit import heap # Max Heap
+>>> from random import randint
+>>> array = [randint(-100, 100) for x in range(30)]
+>>> maxheap1 = heap(array)
+>>> maxheap1.array
+>>> maxheap1.show()
+
 ------------
 
 Screenshot 1: Binary Search Tree, height = 4
@@ -116,10 +123,19 @@ Screenshot 4: DFS Search Space for Work Break
 ---------------------------------------------
 |image4|
 
+------------
+
+Screenshot 5: Max Heap
+---------------------------------------------
+|image5|
+
+
+
 
 .. |image1| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/BST_height=4.png
 .. |image2| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Remove_Invalid_Parentheses.png
 .. |image3a| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_n=5.png
 .. |image3b| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Fibonacci_Numbers_Generalized_n=15_order=8.png
 .. |image4| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/Word_Break_DFS_Search_Space.png
+.. |image5| image:: https://github.com/daniel-yj-yang/treekit/raw/main/treekit/examples/MaxHeap1.png
 

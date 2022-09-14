@@ -12,7 +12,8 @@ from .__about__ import (
 
 from .binarytree import Node, binarytree, bst
 from .tree import TreeNode, tree
+from .heap import heap
 
 
 # this is for "from <package_name> import *"
-__all__ = ["Node", "binarytree", "bst", "TreeNode", "tree", ]
+__all__ = ["Node", "binarytree", "bst", "TreeNode", "tree", "heap"]

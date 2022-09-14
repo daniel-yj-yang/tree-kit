@@ -1,5 +1,7 @@
+
 ver 0.0.22: add several functions to the tree class
 
+heap
 tree.climbing_stairs()
 tree.coin_change()
 tree.decode_ways()

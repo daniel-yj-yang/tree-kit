@@ -4,7 +4,7 @@
 #
 # License: MIT
 
- 
-__version__ = "0.0.22"
+from ._heap import heap
 
-__license__ = "MIT"
+# this is for "from <package_name>.game import *"
+__all__ = ["heap"]
